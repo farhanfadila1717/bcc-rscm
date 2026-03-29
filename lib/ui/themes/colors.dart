@@ -1,0 +1,8 @@
+import 'dart:ui';
+
+class ColorPalette {
+  static const Color bluePrimary = Color(0xFF1F4391);
+
+  static const Color greyScaleBlack10 = Color(0xFFE5E4E3);
+  static const Color greyScaleBlack30 = Color(0xFFB3B1B0);
+}
