@@ -15,11 +15,22 @@ class App extends StatelessWidget {
           surfaceTintColor: Colors.white,
           backgroundColor: Colors.white,
           elevation: 0,
+          centerTitle: false,
+          titleTextStyle: TextStyle(
+            fontWeight: .w600,
+            fontSize: 24,
+            color: Colors.black,
+          ),
         ),
         textTheme: TextTheme(
           displayLarge: TextStyle(
             fontWeight: .w600,
             fontSize: 24,
+            color: Colors.black,
+          ),
+          displaySmall: TextStyle(
+            fontWeight: .w600,
+            fontSize: 16,
             color: Colors.black,
           ),
           bodyMedium: TextStyle(

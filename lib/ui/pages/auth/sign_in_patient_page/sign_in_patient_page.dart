@@ -43,15 +43,8 @@ class _SignInPatientPageState extends State<SignInPatientPage> {
             alignment: .centerRight,
             child: TextButton(onPressed: () {}, child: Text('Lupa Password?')),
           ),
-          Row(
-            crossAxisAlignment: .center,
-            spacing: 30,
-            children: [
-              Expanded(child: Divider()),
-              Text('or', style: Theme.of(context).textTheme.bodySmall),
-              Expanded(child: Divider()),
-            ],
-          ),
+          Gap(size: 24),
+          ElevatedButton(onPressed: () {}, child: Text("Login")),
         ],
       ),
     );
