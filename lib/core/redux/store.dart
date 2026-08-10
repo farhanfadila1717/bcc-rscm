@@ -14,7 +14,7 @@ Store<GlobalState> createStore() {
       NavigationMiddleware(
         goRouter: getIt.get<GoRouter>(),
         navigatorKey: getIt.get<GlobalKey<NavigatorState>>(),
-      ),
+      ).call,
     ],
   );
 }
