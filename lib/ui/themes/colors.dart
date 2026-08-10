@@ -5,4 +5,5 @@ class ColorPalette {
 
   static const Color greyScaleBlack10 = Color(0xFFE5E4E3);
   static const Color greyScaleBlack30 = Color(0xFFB3B1B0);
+  static const Color greyScaleBlack40 = Color(0xFF898989);
 }

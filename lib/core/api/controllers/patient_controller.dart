@@ -1,4 +1,5 @@
 import 'package:bcc_rscm/core/api/api_clients/patient_client.dart';
+import 'package:bcc_rscm/core/models/patient/patient.dart';
 import 'package:bcc_rscm/core/models/patient/patient_summary.dart';
 
 final class PatientController {
@@ -7,4 +8,7 @@ final class PatientController {
   const PatientController({required this.patientClient});
 
   Future<PatientSummaryList?> patientList() => patientClient.patientList();
+
+  Future<PatientDetailResponse?> patientDetail({required String id}) =>
+      patientClient.patientDetail(id: id);
 }

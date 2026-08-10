@@ -1,9 +1,22 @@
-import 'package:bcc_rscm/core/router/router.dart';
+import 'package:bcc_rscm/core/injector/injector.dart';
+import 'package:bcc_rscm/core/redux/action_mapper.dart';
+import 'package:bcc_rscm/core/redux/states/global_state.dart';
 import 'package:bcc_rscm/ui/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreProvider<GlobalState>(store: getIt.get(), child: _AppWrapper());
+  }
+}
+
+class _AppWrapper extends StatelessGlobalActionMapper {
+  const _AppWrapper();
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +102,7 @@ class App extends StatelessWidget {
         ),
         fontFamily: 'Poppins',
       ),
-      routerConfig: appRouter,
+      routerConfig: getIt.get<GoRouter>(),
     );
   }
 }

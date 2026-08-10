@@ -1,4 +1,5 @@
 import 'package:bcc_rscm/core/api/api_clients/api_client.dart';
+import 'package:bcc_rscm/core/models/patient/patient.dart';
 import 'package:bcc_rscm/core/models/patient/patient_summary.dart';
 
 final class PatientClient extends ApiClient {
@@ -10,6 +11,17 @@ final class PatientClient extends ApiClient {
     final response = await post<PatientSummaryList>(
       endpoint: endpoint,
       serializer: PatientSummaryList.fromJson,
+    );
+
+    return response;
+  }
+
+  Future<PatientDetailResponse?> patientDetail({required String id}) async {
+    const endpoint = 'pierre/client/detail';
+
+    final response = await post<PatientDetailResponse>(
+      endpoint: endpoint,
+      serializer: PatientDetailResponse.fromJson,
     );
 
     return response;
