@@ -1,3 +1,4 @@
+import 'package:bcc_rscm/ui/components/default_appbar.dart';
 import 'package:bcc_rscm/ui/components/gap.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class _SignInPatientPageState extends State<SignInPatientPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: DefaultAppBar(),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20, 24, 20, 24),
         children: [

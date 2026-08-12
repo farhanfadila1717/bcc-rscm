@@ -1,5 +1,6 @@
 import 'package:bcc_rscm/core/injector/injector.dart';
 import 'package:bcc_rscm/core/navigation/navigation_observer.dart';
+import 'package:bcc_rscm/ui/pages/auth/profile_page/profile_page.dart';
 import 'package:bcc_rscm/ui/pages/auth/register_patient_page/register_patient_page.dart';
 import 'package:bcc_rscm/ui/pages/auth/sign_in_patient_page/sign_in_patient_page.dart';
 import 'package:bcc_rscm/ui/pages/cleft_connect_page/cleft_connect_page.dart';
@@ -30,22 +31,23 @@ final appRouter = GoRouter(
       builder: (context, state) => const RolesPage(),
     ),
     GoRoute(
-      name: 'Auth',
-      path: '/auth',
-      builder: (context, state) => const SizedBox(),
-      routes: [
-        GoRoute(
-          name: 'SignInPatient',
-          path: 'sign-in-patient',
-          builder: (context, state) => const SignInPatientPage(),
-        ),
-        GoRoute(
-          name: 'RegisterPatient',
-          path: 'register-patient',
-          builder: (context, state) => const RegisterPatientPage(),
-        ),
-      ],
+      name: 'SignInPatient',
+      path: '/auth/sign-in-patient',
+      builder: (context, state) => const SignInPatientPage(),
     ),
+
+    GoRoute(
+      name: 'RegisterPatient',
+      path: '/auth/register-patient',
+      builder: (context, state) => const RegisterPatientPage(),
+    ),
+
+    GoRoute(
+      name: 'Profile',
+      path: '/auth/profile',
+      builder: (context, state) => const ProfilePage(),
+    ),
+
     GoRoute(
       name: 'CleftConnect',
       path: '/cleft-connect',

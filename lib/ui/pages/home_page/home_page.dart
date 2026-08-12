@@ -1,12 +1,14 @@
 import 'dart:math';
 
-import 'package:bcc_rscm/ui/components/bottom_nav_bar.dart';
+import 'package:bcc_rscm/core/redux/action_mapper.dart';
 import 'package:bcc_rscm/ui/components/gap.dart';
 import 'package:bcc_rscm/ui/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class HomePage extends StatefulWidget {
+import 'home_page_action_mapper.dart';
+
+class HomePage extends StatefulGlobalActionMapper with HomePageActionMapper {
   const HomePage({super.key});
 
   @override
@@ -34,17 +36,29 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          // Padding(
+          //   padding: .fromLTRB(20, 24, 20, 8),
+          //   child: Text("Menu", style: theme.textTheme.displaySmall),
+          // ),
           Padding(
-            padding: .fromLTRB(20, 24, 20, 8),
-            child: Text("Menu", style: theme.textTheme.displaySmall),
-          ),
-          Padding(
-            padding: .fromLTRB(20, 0, 20, 0),
+            padding: .fromLTRB(20, 24, 20, 0),
             child: Row(
+              crossAxisAlignment: .start,
+              spacing: 24,
               children: [
-                _MenuItem(
+                _SmallMenuItem(
                   icon: 'assets/icons/ic_patient.svg',
-                  label: 'Cleft Connect',
+                  label: 'Cleft\nConnect',
+                  onTap: widget.goToCleftConnect,
+                ),
+                _SmallMenuItem(
+                  icon: 'assets/icons/ic_file.svg',
+                  label: 'Cleft\nTracker',
+                  onTap: () {},
+                ),
+                _SmallMenuItem(
+                  icon: 'assets/icons/ic_user.svg',
+                  label: 'Profile',
                   onTap: () {},
                 ),
               ],
@@ -82,13 +96,13 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavBar(currentIndex: 0),
+      // bottomNavigationBar: BottomNavBar(currentIndex: 0),
     );
   }
 }
 
-class _MenuItem extends StatelessWidget {
-  const _MenuItem({
+class _SmallMenuItem extends StatelessWidget {
+  const _SmallMenuItem({
     required this.icon,
     required this.label,
     required this.onTap,
@@ -106,10 +120,11 @@ class _MenuItem extends StatelessWidget {
         onTap: onTap,
         child: Column(
           spacing: 10,
+
           children: [
             Container(
-              height: 100,
-              width: 150,
+              height: 50,
+              width: 50,
               decoration: BoxDecoration(
                 color: ColorPalette.bluePrimary,
                 borderRadius: BorderRadius.circular(16),
@@ -117,13 +132,14 @@ class _MenuItem extends StatelessWidget {
               child: Center(
                 child: SvgPicture.asset(
                   icon,
-                  height: 40,
-                  width: 40,
+                  height: 24,
+                  width: 24,
                   semanticsLabel: label,
+                  colorFilter: ColorFilter.mode(Colors.white, .srcIn),
                 ),
               ),
             ),
-            Text(label, style: TextStyle(fontSize: 12)),
+            Text(label, style: TextStyle(fontSize: 12), textAlign: .center),
           ],
         ),
       ),

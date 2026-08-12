@@ -1,11 +1,14 @@
 import 'package:bcc_rscm/core/models/welcome_screen.dart';
+import 'package:bcc_rscm/core/redux/action_mapper.dart';
 import 'package:bcc_rscm/ui/components/dot_indicator.dart';
 import 'package:bcc_rscm/ui/components/gap.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-class WelcomePage extends StatefulWidget {
+import 'welcome_page_action_mapper.dart';
+
+class WelcomePage extends StatefulGlobalActionMapper
+    with WelcomePageActionMapper {
   const WelcomePage({super.key});
 
   @override
@@ -29,9 +32,7 @@ class _WelcomePageState extends State<WelcomePage> {
         child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () {
-              context.go('/roles');
-            },
+            onPressed: widget.goToRolePage,
             child: Text('Mulai'),
           ),
         ),

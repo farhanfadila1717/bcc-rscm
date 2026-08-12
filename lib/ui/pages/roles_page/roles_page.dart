@@ -1,9 +1,12 @@
+import 'package:bcc_rscm/core/redux/action_mapper.dart';
 import 'package:bcc_rscm/ui/components/gap.dart';
 import 'package:bcc_rscm/ui/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class RolesPage extends StatefulWidget {
+import 'roles_page_action_mapper.dart';
+
+class RolesPage extends StatefulGlobalActionMapper with RolesPageActionMapper {
   const RolesPage({super.key});
 
   @override
@@ -26,7 +29,10 @@ class _RolesPageState extends State<RolesPage> {
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: SizedBox(
           width: double.infinity,
-          child: ElevatedButton(onPressed: () {}, child: Text('Lanjut')),
+          child: ElevatedButton(
+            onPressed: widget.goToHome,
+            child: Text('Lanjut'),
+          ),
         ),
       ),
       body: ListView(
@@ -37,7 +43,7 @@ class _RolesPageState extends State<RolesPage> {
           RoleItemCard(
             icon: 'assets/icons/ic_patient.svg',
             label: 'Pasien',
-            onTap: () {},
+            onTap: widget.goToSignInPatient,
           ),
           Gap(size: 40),
 

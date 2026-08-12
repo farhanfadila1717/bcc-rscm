@@ -62,7 +62,7 @@ class NavigationMiddleware extends MiddlewareClass<GlobalState> {
   void _onNavigateBackAction(
     Store<GlobalState> store,
     NavigateBackAction action,
-  ) => Navigator.of(context).pop();
+  ) => goRouter.pop();
 
   void _onShowDialogAction(Store<GlobalState> store, ShowDialogAction action) {
     final routeSettings = RouteSettings(
@@ -114,12 +114,7 @@ class NavigationMiddleware extends MiddlewareClass<GlobalState> {
   void _onNavigateToRootAction(
     Store<GlobalState> store,
     NavigateToRootAction action,
-  ) async {
-    while (context.canPop()) {
-      Future.sync(() => Navigator.pop(context));
-    }
-    context.go(action.path ?? '/', extra: action.extra);
-  }
+  ) => goRouter.go(action.path ?? '/', extra: action.extra);
 
   void _onShowBottomSheetDialogAction(
     Store<GlobalState> store,
