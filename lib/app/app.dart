@@ -3,6 +3,7 @@ import 'package:bcc_rscm/core/redux/action_mapper.dart';
 import 'package:bcc_rscm/core/redux/states/global_state.dart';
 import 'package:bcc_rscm/ui/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -100,8 +101,29 @@ class _AppWrapper extends StatelessGlobalActionMapper {
             shape: StadiumBorder(),
           ),
         ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Color(0xFF1F4391),
+            iconColor: Color(0xFF1F4391),
+            minimumSize: Size(0, 55),
+            textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: .w700,
+              fontFamily: 'Poppins',
+            ),
+            side: BorderSide(color: ColorPalette.bluePrimary),
+            shape: StadiumBorder(
+              side: BorderSide(color: ColorPalette.bluePrimary),
+            ),
+          ),
+        ),
         fontFamily: 'Poppins',
       ),
+      locale: Locale('id', 'ID'),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       routerConfig: getIt.get<GoRouter>(),
     );
   }

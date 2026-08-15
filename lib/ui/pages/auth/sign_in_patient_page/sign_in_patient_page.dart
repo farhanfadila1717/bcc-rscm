@@ -1,8 +1,14 @@
+import 'package:bcc_rscm/core/redux/action_mapper.dart';
 import 'package:bcc_rscm/ui/components/default_appbar.dart';
 import 'package:bcc_rscm/ui/components/gap.dart';
+import 'package:bcc_rscm/ui/themes/colors.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class SignInPatientPage extends StatefulWidget {
+import 'sign_in_patient_page_action_mapper.dart';
+
+class SignInPatientPage extends StatefulGlobalActionMapper
+    with SignInPatientPageActionMapper {
   const SignInPatientPage({super.key});
 
   @override
@@ -45,7 +51,27 @@ class _SignInPatientPageState extends State<SignInPatientPage> {
             child: TextButton(onPressed: () {}, child: Text('Lupa Password?')),
           ),
           Gap(size: 24),
-          ElevatedButton(onPressed: () {}, child: Text("Login")),
+          ElevatedButton(
+            onPressed: widget.goToHomePatient,
+            child: Text("Login"),
+          ),
+          Gap(size: 40),
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(text: 'Tidak memiliki akun? '),
+                TextSpan(
+                  text: 'Buat Akun',
+                  style: TextStyle(
+                    fontWeight: .bold,
+                    color: ColorPalette.blueSecondary,
+                  ),
+                  recognizer: TapGestureRecognizer()..onTap = () {},
+                ),
+              ],
+            ),
+            textAlign: .center,
+          ),
         ],
       ),
     );

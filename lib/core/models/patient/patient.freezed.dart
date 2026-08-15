@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PatientDetail {
 
- String get clientId; String get clientFullName; String get clientIdentityNumber; String get clientGender; bool get clientIsAdopted; String get clientRegistrationDate; String get clientBirthPlace; String get clientBirthDate; String get clientBirthPlaceAndDate; num get clientBirthWeightKg; String get clientAddress;
+ String get clientID; String get clientFullName; String get clientIdentityNumber; String get clientGender; bool get clientIsAdopted; String get clientRegistrationDate; String get clientBirthPlace; String get clientBirthDate; String get clientBirthPlaceAndDate; num get clientBirthWeightKg; String get clientAddress;
 /// Create a copy of PatientDetail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $PatientDetailCopyWith<PatientDetail> get copyWith => _$PatientDetailCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatientDetail&&(identical(other.clientId, clientId) || other.clientId == clientId)&&(identical(other.clientFullName, clientFullName) || other.clientFullName == clientFullName)&&(identical(other.clientIdentityNumber, clientIdentityNumber) || other.clientIdentityNumber == clientIdentityNumber)&&(identical(other.clientGender, clientGender) || other.clientGender == clientGender)&&(identical(other.clientIsAdopted, clientIsAdopted) || other.clientIsAdopted == clientIsAdopted)&&(identical(other.clientRegistrationDate, clientRegistrationDate) || other.clientRegistrationDate == clientRegistrationDate)&&(identical(other.clientBirthPlace, clientBirthPlace) || other.clientBirthPlace == clientBirthPlace)&&(identical(other.clientBirthDate, clientBirthDate) || other.clientBirthDate == clientBirthDate)&&(identical(other.clientBirthPlaceAndDate, clientBirthPlaceAndDate) || other.clientBirthPlaceAndDate == clientBirthPlaceAndDate)&&(identical(other.clientBirthWeightKg, clientBirthWeightKg) || other.clientBirthWeightKg == clientBirthWeightKg)&&(identical(other.clientAddress, clientAddress) || other.clientAddress == clientAddress));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatientDetail&&(identical(other.clientID, clientID) || other.clientID == clientID)&&(identical(other.clientFullName, clientFullName) || other.clientFullName == clientFullName)&&(identical(other.clientIdentityNumber, clientIdentityNumber) || other.clientIdentityNumber == clientIdentityNumber)&&(identical(other.clientGender, clientGender) || other.clientGender == clientGender)&&(identical(other.clientIsAdopted, clientIsAdopted) || other.clientIsAdopted == clientIsAdopted)&&(identical(other.clientRegistrationDate, clientRegistrationDate) || other.clientRegistrationDate == clientRegistrationDate)&&(identical(other.clientBirthPlace, clientBirthPlace) || other.clientBirthPlace == clientBirthPlace)&&(identical(other.clientBirthDate, clientBirthDate) || other.clientBirthDate == clientBirthDate)&&(identical(other.clientBirthPlaceAndDate, clientBirthPlaceAndDate) || other.clientBirthPlaceAndDate == clientBirthPlaceAndDate)&&(identical(other.clientBirthWeightKg, clientBirthWeightKg) || other.clientBirthWeightKg == clientBirthWeightKg)&&(identical(other.clientAddress, clientAddress) || other.clientAddress == clientAddress));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,clientId,clientFullName,clientIdentityNumber,clientGender,clientIsAdopted,clientRegistrationDate,clientBirthPlace,clientBirthDate,clientBirthPlaceAndDate,clientBirthWeightKg,clientAddress);
+int get hashCode => Object.hash(runtimeType,clientID,clientFullName,clientIdentityNumber,clientGender,clientIsAdopted,clientRegistrationDate,clientBirthPlace,clientBirthDate,clientBirthPlaceAndDate,clientBirthWeightKg,clientAddress);
 
 @override
 String toString() {
-  return 'PatientDetail(clientId: $clientId, clientFullName: $clientFullName, clientIdentityNumber: $clientIdentityNumber, clientGender: $clientGender, clientIsAdopted: $clientIsAdopted, clientRegistrationDate: $clientRegistrationDate, clientBirthPlace: $clientBirthPlace, clientBirthDate: $clientBirthDate, clientBirthPlaceAndDate: $clientBirthPlaceAndDate, clientBirthWeightKg: $clientBirthWeightKg, clientAddress: $clientAddress)';
+  return 'PatientDetail(clientID: $clientID, clientFullName: $clientFullName, clientIdentityNumber: $clientIdentityNumber, clientGender: $clientGender, clientIsAdopted: $clientIsAdopted, clientRegistrationDate: $clientRegistrationDate, clientBirthPlace: $clientBirthPlace, clientBirthDate: $clientBirthDate, clientBirthPlaceAndDate: $clientBirthPlaceAndDate, clientBirthWeightKg: $clientBirthWeightKg, clientAddress: $clientAddress)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $PatientDetailCopyWith<$Res>  {
   factory $PatientDetailCopyWith(PatientDetail value, $Res Function(PatientDetail) _then) = _$PatientDetailCopyWithImpl;
 @useResult
 $Res call({
- String clientId, String clientFullName, String clientIdentityNumber, String clientGender, bool clientIsAdopted, String clientRegistrationDate, String clientBirthPlace, String clientBirthDate, String clientBirthPlaceAndDate, num clientBirthWeightKg, String clientAddress
+ String clientID, String clientFullName, String clientIdentityNumber, String clientGender, bool clientIsAdopted, String clientRegistrationDate, String clientBirthPlace, String clientBirthDate, String clientBirthPlaceAndDate, num clientBirthWeightKg, String clientAddress
 });
 
 
@@ -63,9 +63,9 @@ class _$PatientDetailCopyWithImpl<$Res>
 
 /// Create a copy of PatientDetail
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? clientId = null,Object? clientFullName = null,Object? clientIdentityNumber = null,Object? clientGender = null,Object? clientIsAdopted = null,Object? clientRegistrationDate = null,Object? clientBirthPlace = null,Object? clientBirthDate = null,Object? clientBirthPlaceAndDate = null,Object? clientBirthWeightKg = null,Object? clientAddress = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? clientID = null,Object? clientFullName = null,Object? clientIdentityNumber = null,Object? clientGender = null,Object? clientIsAdopted = null,Object? clientRegistrationDate = null,Object? clientBirthPlace = null,Object? clientBirthDate = null,Object? clientBirthPlaceAndDate = null,Object? clientBirthWeightKg = null,Object? clientAddress = null,}) {
   return _then(_self.copyWith(
-clientId: null == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
+clientID: null == clientID ? _self.clientID : clientID // ignore: cast_nullable_to_non_nullable
 as String,clientFullName: null == clientFullName ? _self.clientFullName : clientFullName // ignore: cast_nullable_to_non_nullable
 as String,clientIdentityNumber: null == clientIdentityNumber ? _self.clientIdentityNumber : clientIdentityNumber // ignore: cast_nullable_to_non_nullable
 as String,clientGender: null == clientGender ? _self.clientGender : clientGender // ignore: cast_nullable_to_non_nullable
@@ -161,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String clientId,  String clientFullName,  String clientIdentityNumber,  String clientGender,  bool clientIsAdopted,  String clientRegistrationDate,  String clientBirthPlace,  String clientBirthDate,  String clientBirthPlaceAndDate,  num clientBirthWeightKg,  String clientAddress)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String clientID,  String clientFullName,  String clientIdentityNumber,  String clientGender,  bool clientIsAdopted,  String clientRegistrationDate,  String clientBirthPlace,  String clientBirthDate,  String clientBirthPlaceAndDate,  num clientBirthWeightKg,  String clientAddress)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PatientDetail() when $default != null:
-return $default(_that.clientId,_that.clientFullName,_that.clientIdentityNumber,_that.clientGender,_that.clientIsAdopted,_that.clientRegistrationDate,_that.clientBirthPlace,_that.clientBirthDate,_that.clientBirthPlaceAndDate,_that.clientBirthWeightKg,_that.clientAddress);case _:
+return $default(_that.clientID,_that.clientFullName,_that.clientIdentityNumber,_that.clientGender,_that.clientIsAdopted,_that.clientRegistrationDate,_that.clientBirthPlace,_that.clientBirthDate,_that.clientBirthPlaceAndDate,_that.clientBirthWeightKg,_that.clientAddress);case _:
   return orElse();
 
 }
@@ -182,10 +182,10 @@ return $default(_that.clientId,_that.clientFullName,_that.clientIdentityNumber,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String clientId,  String clientFullName,  String clientIdentityNumber,  String clientGender,  bool clientIsAdopted,  String clientRegistrationDate,  String clientBirthPlace,  String clientBirthDate,  String clientBirthPlaceAndDate,  num clientBirthWeightKg,  String clientAddress)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String clientID,  String clientFullName,  String clientIdentityNumber,  String clientGender,  bool clientIsAdopted,  String clientRegistrationDate,  String clientBirthPlace,  String clientBirthDate,  String clientBirthPlaceAndDate,  num clientBirthWeightKg,  String clientAddress)  $default,) {final _that = this;
 switch (_that) {
 case _PatientDetail():
-return $default(_that.clientId,_that.clientFullName,_that.clientIdentityNumber,_that.clientGender,_that.clientIsAdopted,_that.clientRegistrationDate,_that.clientBirthPlace,_that.clientBirthDate,_that.clientBirthPlaceAndDate,_that.clientBirthWeightKg,_that.clientAddress);case _:
+return $default(_that.clientID,_that.clientFullName,_that.clientIdentityNumber,_that.clientGender,_that.clientIsAdopted,_that.clientRegistrationDate,_that.clientBirthPlace,_that.clientBirthDate,_that.clientBirthPlaceAndDate,_that.clientBirthWeightKg,_that.clientAddress);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +202,10 @@ return $default(_that.clientId,_that.clientFullName,_that.clientIdentityNumber,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String clientId,  String clientFullName,  String clientIdentityNumber,  String clientGender,  bool clientIsAdopted,  String clientRegistrationDate,  String clientBirthPlace,  String clientBirthDate,  String clientBirthPlaceAndDate,  num clientBirthWeightKg,  String clientAddress)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String clientID,  String clientFullName,  String clientIdentityNumber,  String clientGender,  bool clientIsAdopted,  String clientRegistrationDate,  String clientBirthPlace,  String clientBirthDate,  String clientBirthPlaceAndDate,  num clientBirthWeightKg,  String clientAddress)?  $default,) {final _that = this;
 switch (_that) {
 case _PatientDetail() when $default != null:
-return $default(_that.clientId,_that.clientFullName,_that.clientIdentityNumber,_that.clientGender,_that.clientIsAdopted,_that.clientRegistrationDate,_that.clientBirthPlace,_that.clientBirthDate,_that.clientBirthPlaceAndDate,_that.clientBirthWeightKg,_that.clientAddress);case _:
+return $default(_that.clientID,_that.clientFullName,_that.clientIdentityNumber,_that.clientGender,_that.clientIsAdopted,_that.clientRegistrationDate,_that.clientBirthPlace,_that.clientBirthDate,_that.clientBirthPlaceAndDate,_that.clientBirthWeightKg,_that.clientAddress);case _:
   return null;
 
 }
@@ -217,10 +217,10 @@ return $default(_that.clientId,_that.clientFullName,_that.clientIdentityNumber,_
 
 @JsonSerializable(fieldRename: .pascal, createToJson: false)
 class _PatientDetail extends PatientDetail {
-  const _PatientDetail({required this.clientId, required this.clientFullName, required this.clientIdentityNumber, required this.clientGender, required this.clientIsAdopted, required this.clientRegistrationDate, required this.clientBirthPlace, required this.clientBirthDate, required this.clientBirthPlaceAndDate, required this.clientBirthWeightKg, required this.clientAddress}): super._();
+  const _PatientDetail({required this.clientID, required this.clientFullName, required this.clientIdentityNumber, required this.clientGender, required this.clientIsAdopted, required this.clientRegistrationDate, required this.clientBirthPlace, required this.clientBirthDate, required this.clientBirthPlaceAndDate, required this.clientBirthWeightKg, required this.clientAddress}): super._();
   factory _PatientDetail.fromJson(Map<String, dynamic> json) => _$PatientDetailFromJson(json);
 
-@override final  String clientId;
+@override final  String clientID;
 @override final  String clientFullName;
 @override final  String clientIdentityNumber;
 @override final  String clientGender;
@@ -242,16 +242,16 @@ _$PatientDetailCopyWith<_PatientDetail> get copyWith => __$PatientDetailCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatientDetail&&(identical(other.clientId, clientId) || other.clientId == clientId)&&(identical(other.clientFullName, clientFullName) || other.clientFullName == clientFullName)&&(identical(other.clientIdentityNumber, clientIdentityNumber) || other.clientIdentityNumber == clientIdentityNumber)&&(identical(other.clientGender, clientGender) || other.clientGender == clientGender)&&(identical(other.clientIsAdopted, clientIsAdopted) || other.clientIsAdopted == clientIsAdopted)&&(identical(other.clientRegistrationDate, clientRegistrationDate) || other.clientRegistrationDate == clientRegistrationDate)&&(identical(other.clientBirthPlace, clientBirthPlace) || other.clientBirthPlace == clientBirthPlace)&&(identical(other.clientBirthDate, clientBirthDate) || other.clientBirthDate == clientBirthDate)&&(identical(other.clientBirthPlaceAndDate, clientBirthPlaceAndDate) || other.clientBirthPlaceAndDate == clientBirthPlaceAndDate)&&(identical(other.clientBirthWeightKg, clientBirthWeightKg) || other.clientBirthWeightKg == clientBirthWeightKg)&&(identical(other.clientAddress, clientAddress) || other.clientAddress == clientAddress));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatientDetail&&(identical(other.clientID, clientID) || other.clientID == clientID)&&(identical(other.clientFullName, clientFullName) || other.clientFullName == clientFullName)&&(identical(other.clientIdentityNumber, clientIdentityNumber) || other.clientIdentityNumber == clientIdentityNumber)&&(identical(other.clientGender, clientGender) || other.clientGender == clientGender)&&(identical(other.clientIsAdopted, clientIsAdopted) || other.clientIsAdopted == clientIsAdopted)&&(identical(other.clientRegistrationDate, clientRegistrationDate) || other.clientRegistrationDate == clientRegistrationDate)&&(identical(other.clientBirthPlace, clientBirthPlace) || other.clientBirthPlace == clientBirthPlace)&&(identical(other.clientBirthDate, clientBirthDate) || other.clientBirthDate == clientBirthDate)&&(identical(other.clientBirthPlaceAndDate, clientBirthPlaceAndDate) || other.clientBirthPlaceAndDate == clientBirthPlaceAndDate)&&(identical(other.clientBirthWeightKg, clientBirthWeightKg) || other.clientBirthWeightKg == clientBirthWeightKg)&&(identical(other.clientAddress, clientAddress) || other.clientAddress == clientAddress));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,clientId,clientFullName,clientIdentityNumber,clientGender,clientIsAdopted,clientRegistrationDate,clientBirthPlace,clientBirthDate,clientBirthPlaceAndDate,clientBirthWeightKg,clientAddress);
+int get hashCode => Object.hash(runtimeType,clientID,clientFullName,clientIdentityNumber,clientGender,clientIsAdopted,clientRegistrationDate,clientBirthPlace,clientBirthDate,clientBirthPlaceAndDate,clientBirthWeightKg,clientAddress);
 
 @override
 String toString() {
-  return 'PatientDetail(clientId: $clientId, clientFullName: $clientFullName, clientIdentityNumber: $clientIdentityNumber, clientGender: $clientGender, clientIsAdopted: $clientIsAdopted, clientRegistrationDate: $clientRegistrationDate, clientBirthPlace: $clientBirthPlace, clientBirthDate: $clientBirthDate, clientBirthPlaceAndDate: $clientBirthPlaceAndDate, clientBirthWeightKg: $clientBirthWeightKg, clientAddress: $clientAddress)';
+  return 'PatientDetail(clientID: $clientID, clientFullName: $clientFullName, clientIdentityNumber: $clientIdentityNumber, clientGender: $clientGender, clientIsAdopted: $clientIsAdopted, clientRegistrationDate: $clientRegistrationDate, clientBirthPlace: $clientBirthPlace, clientBirthDate: $clientBirthDate, clientBirthPlaceAndDate: $clientBirthPlaceAndDate, clientBirthWeightKg: $clientBirthWeightKg, clientAddress: $clientAddress)';
 }
 
 
@@ -262,7 +262,7 @@ abstract mixin class _$PatientDetailCopyWith<$Res> implements $PatientDetailCopy
   factory _$PatientDetailCopyWith(_PatientDetail value, $Res Function(_PatientDetail) _then) = __$PatientDetailCopyWithImpl;
 @override @useResult
 $Res call({
- String clientId, String clientFullName, String clientIdentityNumber, String clientGender, bool clientIsAdopted, String clientRegistrationDate, String clientBirthPlace, String clientBirthDate, String clientBirthPlaceAndDate, num clientBirthWeightKg, String clientAddress
+ String clientID, String clientFullName, String clientIdentityNumber, String clientGender, bool clientIsAdopted, String clientRegistrationDate, String clientBirthPlace, String clientBirthDate, String clientBirthPlaceAndDate, num clientBirthWeightKg, String clientAddress
 });
 
 
@@ -279,9 +279,9 @@ class __$PatientDetailCopyWithImpl<$Res>
 
 /// Create a copy of PatientDetail
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? clientId = null,Object? clientFullName = null,Object? clientIdentityNumber = null,Object? clientGender = null,Object? clientIsAdopted = null,Object? clientRegistrationDate = null,Object? clientBirthPlace = null,Object? clientBirthDate = null,Object? clientBirthPlaceAndDate = null,Object? clientBirthWeightKg = null,Object? clientAddress = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? clientID = null,Object? clientFullName = null,Object? clientIdentityNumber = null,Object? clientGender = null,Object? clientIsAdopted = null,Object? clientRegistrationDate = null,Object? clientBirthPlace = null,Object? clientBirthDate = null,Object? clientBirthPlaceAndDate = null,Object? clientBirthWeightKg = null,Object? clientAddress = null,}) {
   return _then(_PatientDetail(
-clientId: null == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
+clientID: null == clientID ? _self.clientID : clientID // ignore: cast_nullable_to_non_nullable
 as String,clientFullName: null == clientFullName ? _self.clientFullName : clientFullName // ignore: cast_nullable_to_non_nullable
 as String,clientIdentityNumber: null == clientIdentityNumber ? _self.clientIdentityNumber : clientIdentityNumber // ignore: cast_nullable_to_non_nullable
 as String,clientGender: null == clientGender ? _self.clientGender : clientGender // ignore: cast_nullable_to_non_nullable

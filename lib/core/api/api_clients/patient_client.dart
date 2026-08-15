@@ -22,6 +22,7 @@ final class PatientClient extends ApiClient {
     final response = await post<PatientDetailResponse>(
       endpoint: endpoint,
       serializer: PatientDetailResponse.fromJson,
+      body: {"id": id},
     );
 
     return response;

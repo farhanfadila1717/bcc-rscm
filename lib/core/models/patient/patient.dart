@@ -13,7 +13,7 @@ abstract class PatientDetail with _$PatientDetail {
 
   @JsonSerializable(fieldRename: .pascal, createToJson: false)
   const factory PatientDetail({
-    required String clientId,
+    required String clientID,
     required String clientFullName,
     required String clientIdentityNumber,
     required String clientGender,

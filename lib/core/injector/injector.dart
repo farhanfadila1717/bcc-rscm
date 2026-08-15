@@ -1,5 +1,6 @@
 import 'package:bcc_rscm/core/api/api.dart';
 import 'package:bcc_rscm/core/api/controllers/patient_controller.dart';
+import 'package:bcc_rscm/core/api/interceptors/curl_interceptors.dart';
 import 'package:bcc_rscm/core/models/utils/environment_config.dart';
 import 'package:bcc_rscm/core/redux/states/global_state.dart';
 import 'package:bcc_rscm/core/redux/store.dart';
@@ -12,7 +13,9 @@ import 'package:redux/redux.dart';
 final getIt = GetIt.instance;
 
 void inject(EnvironmentConfig env) {
-  final api = Api.create(env: env, interceptors: []);
+  getIt.registerSingleton<Api>(
+    Api.create(env: env, interceptors: [CurlInterceptor()]),
+  );
 
   getIt.registerSingleton<GlobalKey<NavigatorState>>(
     GlobalKey<NavigatorState>(),
@@ -21,7 +24,7 @@ void inject(EnvironmentConfig env) {
   getIt.registerSingleton<GoRouter>(appRouter);
 
   getIt.registerSingleton<PatientController>(
-    PatientController(patientClient: api.patientClient),
+    PatientController(patientClient: getIt.get<Api>().patientClient),
   );
 
   getIt.registerSingleton<Store<GlobalState>>(createStore());

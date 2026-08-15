@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bcc_rscm/core/api/exceptions/seriliazer_exception.dart';
+import 'package:bcc_rscm/core/api/interceptors/curl_interceptors.dart';
 import 'package:bcc_rscm/core/models/utils/environment_config.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -16,9 +17,9 @@ abstract class ApiClient {
   ApiClient({required this.interceptors, required this.env}) {
     _dio = Dio(_baseOptions);
 
-    if (interceptors != null && interceptors!.isNotEmpty) {
-      _dio.interceptors.addAll(interceptors!);
-    }
+    if (interceptors != null && interceptors!.isNotEmpty) {}
+
+    _dio.interceptors.add(CurlInterceptor());
   }
 
   BaseOptions get _baseOptions => BaseOptions(baseUrl: env.apiUrl);

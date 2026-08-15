@@ -2,9 +2,11 @@ import 'dart:math';
 
 import 'package:bcc_rscm/core/redux/action_mapper.dart';
 import 'package:bcc_rscm/ui/components/gap.dart';
+import 'package:bcc_rscm/ui/components/home_carousel.dart';
 import 'package:bcc_rscm/ui/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 import 'home_page_action_mapper.dart';
 
@@ -24,40 +26,34 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(title: Text('Home')),
       body: ListView(
         children: [
+          HomeCarousel(),
           Padding(
-            padding: .symmetric(horizontal: 20),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-            ),
+            padding: .fromLTRB(20, 24, 20, 8),
+            child: Text("Menu", style: theme.textTheme.displaySmall),
           ),
-          // Padding(
-          //   padding: .fromLTRB(20, 24, 20, 8),
-          //   child: Text("Menu", style: theme.textTheme.displaySmall),
-          // ),
           Padding(
-            padding: .fromLTRB(20, 24, 20, 0),
+            padding: .fromLTRB(20, 8, 20, 0),
             child: Row(
               crossAxisAlignment: .start,
               spacing: 24,
               children: [
-                _SmallMenuItem(
+                SmallMenuItem(
                   icon: 'assets/icons/ic_patient.svg',
                   label: 'Cleft\nConnect',
                   onTap: widget.goToCleftConnect,
                 ),
-                _SmallMenuItem(
-                  icon: 'assets/icons/ic_file.svg',
+                SmallMenuItem(
+                  icon: 'assets/icons/ic_tracker.svg',
                   label: 'Cleft\nTracker',
+                  onTap: widget.goToCleftTracker,
+                ),
+                SmallMenuItem(
+                  icon: 'assets/icons/ic_inbox.svg',
+                  label: 'Pesan',
                   onTap: () {},
                 ),
-                _SmallMenuItem(
-                  icon: 'assets/icons/ic_user.svg',
+                SmallMenuItem(
+                  icon: 'assets/icons/ic_profile.svg',
                   label: 'Profile',
                   onTap: () {},
                 ),
@@ -78,7 +74,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(
-            height: 150,
+            height: 125,
             width: double.infinity,
             child: ListView.separated(
               scrollDirection: .horizontal,
@@ -87,9 +83,62 @@ class _HomePageState extends State<HomePage> {
               separatorBuilder: (_, _) => Gap(size: 16),
               itemBuilder: (_, _) => Container(
                 width: min(size.width * 0.8, 300),
+                padding: .all(16),
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: Color(0xFFF8F8F8),
                   borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  spacing: 10,
+                  children: [
+                    ClipRRect(
+                      borderRadius: .circular(10),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Image.network(
+                          'https://www.bicarakan.id/blog/wp-content/uploads/2025/09/girl-pushing-mom-skateboard-2-scaled.webp',
+                          fit: .cover,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: .symmetric(vertical: 4),
+                        child: Column(
+                          mainAxisAlignment: .spaceBetween,
+                          children: [
+                            Text(
+                              'Bibir Sumbing pada Bayi: Penyebab, Tanda, dan Penyembuhannya',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: ColorPalette.bluePrimary,
+                                fontWeight: .w500,
+                              ),
+                            ),
+                            Row(
+                              spacing: 4,
+                              children: [
+                                Icon(
+                                  Icons.access_time_rounded,
+                                  size: 16,
+                                  color: ColorPalette.greyIcon,
+                                ),
+                                Text(
+                                  DateFormat(
+                                    'd MMMM yyyy',
+                                  ).format(DateTime.now()),
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: .w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -101,8 +150,9 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class _SmallMenuItem extends StatelessWidget {
-  const _SmallMenuItem({
+class SmallMenuItem extends StatelessWidget {
+  const SmallMenuItem({
+    super.key,
     required this.icon,
     required this.label,
     required this.onTap,

@@ -50,7 +50,7 @@ class _RolesPageState extends State<RolesPage> {
           RoleItemCard(
             icon: 'assets/icons/ic_doctor.svg',
             label: 'Dokter',
-            onTap: () {},
+            onTap: widget.goToDoctorHome,
           ),
           Gap(size: 60),
         ],

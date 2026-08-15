@@ -8,7 +8,7 @@ part of 'patient.dart';
 
 _PatientDetail _$PatientDetailFromJson(Map<String, dynamic> json) =>
     _PatientDetail(
-      clientId: json['ClientId'] as String,
+      clientID: json['ClientID'] as String,
       clientFullName: json['ClientFullName'] as String,
       clientIdentityNumber: json['ClientIdentityNumber'] as String,
       clientGender: json['ClientGender'] as String,

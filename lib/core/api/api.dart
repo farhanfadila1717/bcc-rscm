@@ -9,7 +9,7 @@ final class Api {
 
   factory Api.create({
     required EnvironmentConfig env,
-    required Iterable<Interceptor> interceptors,
+    required List<Interceptor> interceptors,
   }) => Api(
     patientClient: PatientClient(interceptors: interceptors, env: env),
   );
