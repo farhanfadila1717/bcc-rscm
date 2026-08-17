@@ -14,26 +14,29 @@ class TileMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(minHeight: 55, minWidth: .infinity),
-      decoration: BoxDecoration(color: Colors.white),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: .start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(fontWeight: .w600, color: Colors.black),
-                ),
-                if (subtitle != null)
-                  Text(subtitle!, style: TextStyle(fontSize: 12)),
-              ],
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        constraints: BoxConstraints(minHeight: 55, minWidth: .infinity),
+        decoration: BoxDecoration(color: Colors.white),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: .start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(fontWeight: .w600, color: Colors.black),
+                  ),
+                  if (subtitle != null)
+                    Text(subtitle!, style: TextStyle(fontSize: 12)),
+                ],
+              ),
             ),
-          ),
-          Icon(Icons.chevron_right_rounded),
-        ],
+            Icon(Icons.chevron_right_rounded),
+          ],
+        ),
       ),
     );
   }

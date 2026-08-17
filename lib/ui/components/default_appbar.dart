@@ -71,6 +71,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
                 (canPop
                     ? IconButton(
                         icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                        tooltip: 'Kembali',
                         onPressed: onTap ?? () => context.pop(),
                       )
                     : null))

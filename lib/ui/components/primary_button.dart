@@ -6,18 +6,23 @@ class PrimaryButton extends StatelessWidget {
     required this.text,
     this.color,
     this.onPressed,
+    this.width,
   });
 
   final String text;
   final VoidCallback? onPressed;
   final Color? color;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(backgroundColor: color),
-      child: Text(text),
+    return SizedBox(
+      width: width,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(backgroundColor: color),
+        child: Text(text),
+      ),
     );
   }
 }

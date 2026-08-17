@@ -30,7 +30,7 @@ class _RolesPageState extends State<RolesPage> {
         child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: widget.goToHome,
+            onPressed: widget.goToCamera,
             child: Text('Lanjut'),
           ),
         ),
@@ -46,7 +46,6 @@ class _RolesPageState extends State<RolesPage> {
             onTap: widget.goToSignInPatient,
           ),
           Gap(size: 40),
-
           RoleItemCard(
             icon: 'assets/icons/ic_doctor.svg',
             label: 'Dokter',

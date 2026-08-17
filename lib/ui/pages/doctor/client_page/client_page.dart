@@ -8,7 +8,10 @@ import 'package:bcc_rscm/ui/components/gap.dart';
 import 'package:bcc_rscm/ui/components/tile_menu_item.dart';
 import 'package:flutter/material.dart';
 
-class ClientPage extends StatefulGlobalActionMapper {
+import 'client_page_action_mapper.dart';
+
+class ClientPage extends StatefulGlobalActionMapper
+    with ClientPageActionMapper {
   const ClientPage({super.key, required this.clientId});
 
   final String clientId;
@@ -100,17 +103,17 @@ class _ClientPageState extends State<ClientPage> {
                                 ),
                               ],
                             ),
-                            Row(
-                              spacing: 4,
-                              mainAxisSize: .min,
-                              children: [
-                                Icon(Icons.phone, size: 16),
-                                Text(
-                                  clientDetail.clientIdentityNumber,
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   spacing: 4,
+                            //   mainAxisSize: .min,
+                            //   children: [
+                            //     Icon(Icons.phone, size: 16),
+                            //     Text(
+                            //       clientDetail.clientIdentityNumber,
+                            //       style: TextStyle(color: Colors.black),
+                            //     ),
+                            //   ],
+                            // ),
                             Row(
                               spacing: 4,
                               mainAxisSize: .min,
@@ -147,12 +150,14 @@ class _ClientPageState extends State<ClientPage> {
               TileMenuItem(
                 title: 'Laporan Visit Awal',
                 subtitle: 'Initial assessment report',
-                onPressed: () {},
+                onPressed: () =>
+                    widget.goToReportFirstVisit(id: widget.clientId),
               ),
               TileMenuItem(
                 title: 'Laporan Visit Rutin',
                 subtitle: 'Routine follow-up visits',
-                onPressed: () {},
+                onPressed: () =>
+                    widget.goToReportRoutineVisit(id: widget.clientId),
               ),
               TileMenuItem(
                 title: 'Laporan Operasi',

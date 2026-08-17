@@ -8,4 +8,6 @@ mixin RolesPageActionMapper on GlobalActionMapper {
 
   void goToSignInPatient() =>
       dispatch(NavigateToRootAction(path: '/auth/sign-in-patient'));
+
+  void goToCamera() => dispatch(NavigateToNextAction('/camera/guide'));
 }

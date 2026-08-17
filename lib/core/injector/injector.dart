@@ -1,4 +1,6 @@
 import 'package:bcc_rscm/core/api/api.dart';
+import 'package:bcc_rscm/core/api/controllers/appointment_controller.dart';
+import 'package:bcc_rscm/core/api/controllers/intake_controller.dart';
 import 'package:bcc_rscm/core/api/controllers/patient_controller.dart';
 import 'package:bcc_rscm/core/api/interceptors/curl_interceptors.dart';
 import 'package:bcc_rscm/core/models/utils/environment_config.dart';
@@ -8,14 +10,17 @@ import 'package:bcc_rscm/core/router/router.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
 
 final getIt = GetIt.instance;
 
 void inject(EnvironmentConfig env) {
-  getIt.registerSingleton<Api>(
-    Api.create(env: env, interceptors: [CurlInterceptor()]),
-  );
+  final api = Api.create(env: env, interceptors: [CurlInterceptor()]);
+
+  final appLogging = Logger('AppLogger');
+
+  getIt.registerSingleton<Logger>(appLogging);
 
   getIt.registerSingleton<GlobalKey<NavigatorState>>(
     GlobalKey<NavigatorState>(),
@@ -23,8 +28,16 @@ void inject(EnvironmentConfig env) {
 
   getIt.registerSingleton<GoRouter>(appRouter);
 
+  getIt.registerSingleton<AppointmentController>(
+    AppointmentController(appointmentClient: api.appointmentClient),
+  );
+
+  getIt.registerSingleton<IntakeController>(
+    IntakeController(intakeClient: api.intakeClient),
+  );
+
   getIt.registerSingleton<PatientController>(
-    PatientController(patientClient: getIt.get<Api>().patientClient),
+    PatientController(patientClient: api.patientClient),
   );
 
   getIt.registerSingleton<Store<GlobalState>>(createStore());

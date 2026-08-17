@@ -66,5 +66,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>We need camera to capture patient photo</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need camera to capture patient voice</string>
 </dict>
 </plist>

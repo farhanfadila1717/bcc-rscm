@@ -10,4 +10,6 @@ class ColorPalette {
 
   static const Color greyIcon = Color(0xFF9395A4);
   static const Color red = Color(0xFFFF0000);
+
+  static const Color orange40 = Color(0xFFFF6D00);
 }

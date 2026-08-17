@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:bcc_rscm/core/injector/injector.dart';
 import 'package:bcc_rscm/core/redux/action_mapper.dart';
+import 'package:bcc_rscm/core/redux/actions/app_actions.dart';
 import 'package:bcc_rscm/core/redux/states/global_state.dart';
+import 'package:bcc_rscm/ui/components/after_layout_mixin.dart';
 import 'package:bcc_rscm/ui/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,8 +20,18 @@ class App extends StatelessWidget {
   }
 }
 
-class _AppWrapper extends StatelessGlobalActionMapper {
+class _AppWrapper extends StatefulGlobalActionMapper {
   const _AppWrapper();
+
+  @override
+  State<_AppWrapper> createState() => _AppWrapperState();
+}
+
+class _AppWrapperState extends State<_AppWrapper> with AfterLayoutMixin {
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) {
+    widget.dispatch(CheckPermissionCameraAction());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +114,10 @@ class _AppWrapper extends StatelessGlobalActionMapper {
             ),
             shape: StadiumBorder(),
           ),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: ColorPalette.bluePrimary,
+          foregroundColor: Colors.white,
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(

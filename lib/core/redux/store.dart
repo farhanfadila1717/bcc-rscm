@@ -11,6 +11,7 @@ Store<GlobalState> createStore() {
     allReducers,
     initialState: GlobalState(),
     middleware: [
+      AppMiddleware().call,
       NavigationMiddleware(
         goRouter: getIt.get<GoRouter>(),
         navigatorKey: getIt.get<GlobalKey<NavigatorState>>(),

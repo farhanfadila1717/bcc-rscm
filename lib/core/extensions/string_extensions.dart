@@ -13,4 +13,6 @@ extension StringExtensions on String {
 
     return '${words.first[0]}${words.last[0]}'.toUpperCase();
   }
+
+  String? get preferNullWhenEmpty => isEmpty ? null : this;
 }
