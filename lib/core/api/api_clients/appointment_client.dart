@@ -3,7 +3,7 @@ import 'package:bcc_rscm/core/models/doctor/appointment.dart';
 import 'package:bcc_rscm/core/models/doctor/appointment_detail.dart';
 
 final class AppointmentClient extends ApiClient {
-  AppointmentClient({required super.interceptors, required super.env});
+  new({required super.interceptors, required super.env});
 
   Future<AppointmentListResponse?> appointmentList({required String id}) async {
     const endpoint = 'pierre/client/appointment/list';

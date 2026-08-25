@@ -7,6 +7,7 @@ import 'package:bcc_rscm/ui/components/api_loader.dart';
 import 'package:bcc_rscm/ui/components/collapse_mixin.dart';
 import 'package:bcc_rscm/ui/components/default_appbar.dart';
 import 'package:bcc_rscm/ui/components/default_check_box.dart';
+import 'package:bcc_rscm/ui/components/default_chip.dart';
 import 'package:bcc_rscm/ui/components/default_date_picker.dart';
 import 'package:bcc_rscm/ui/components/default_dropdown.dart';
 import 'package:bcc_rscm/ui/components/default_empty_view.dart';
@@ -44,6 +45,9 @@ class _ProfilePatientPageState extends State<ProfilePatientPage>
     _apiLoaderController = ApiLoaderController(
       fetcher: () =>
           widget.injector.get<PatientController>().patientDetail(id: widget.id),
+      onLoaded: (data) => setState(() {
+        _patientDetailResponse = data;
+      }),
     );
     listenCollapse(controller: _scrollController, maxOffset: 150);
   }
@@ -60,6 +64,13 @@ class _ProfilePatientPageState extends State<ProfilePatientPage>
   }
 
   @override
+  void setState(VoidCallback fn) {
+    if (!mounted) return;
+
+    super.setState(fn);
+  }
+
+  @override
   void dispose() {
     _scrollController.dispose();
     _apiLoaderController.dispose();
@@ -71,9 +82,15 @@ class _ProfilePatientPageState extends State<ProfilePatientPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DefaultAppBar(
-        systemOverlayStyle: .light,
-        backgroundColor: ColorPalette.bluePrimary,
-        iconColor: Colors.white,
+        systemOverlayStyle: isCollapsed || _patientDetailResponse == null
+            ? .dark
+            : .light,
+        backgroundColor: isCollapsed || _patientDetailResponse == null
+            ? Colors.white
+            : ColorPalette.bluePrimary,
+        iconColor: isCollapsed || _patientDetailResponse == null
+            ? Colors.black
+            : Colors.white,
       ),
       body: Scrollbar(
         controller: _scrollController,
@@ -111,18 +128,13 @@ class _ProfilePatientPageState extends State<ProfilePatientPage>
                         style: TextStyle(fontSize: 14, color: Colors.white),
                       ),
                       Gap(size: 8),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: .circular(20),
-                        ),
-                        padding: .symmetric(horizontal: 8, vertical: 2),
-                        child: Text(
-                          clientDetail.clientID,
-                          style: TextStyle(
-                            color: ColorPalette.bluePrimary,
-                            fontWeight: .w500,
-                          ),
+                      DefaultChip(
+                        text: clientDetail.clientID,
+                        backgroundColor: Colors.white,
+                        textStyle: TextStyle(
+                          fontWeight: .w600,
+                          color: ColorPalette.bluePrimary,
+                          fontSize: 12,
                         ),
                       ),
                     ],

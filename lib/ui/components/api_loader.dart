@@ -45,9 +45,11 @@ class ApiLoaderState<T> {
 /// (or `reload()`) from anywhere that holds a reference to the
 /// controller — a pull-to-refresh, a retry button elsewhere on the
 /// screen, a button in an AppBar, etc.
-class ApiLoaderController<T> extends ChangeNotifier {
+final class ApiLoaderController<T> extends ChangeNotifier {
   ApiLoaderController({
     required Future<T> Function() fetcher,
+    this.onLoaded,
+    this.onRefresh,
     bool fetchOnInit = true,
   }) : _fetcher = fetcher {
     if (fetchOnInit) {
@@ -60,28 +62,39 @@ class ApiLoaderController<T> extends ChangeNotifier {
 
   final Future<T> Function() _fetcher;
 
+  /// Called when the fetch successfully returns data.
+  final void Function(T data)? onLoaded;
+
+  /// Called whenever refresh() starts.
+  final void Function()? onRefresh;
+
   ApiLoaderState<T> _state = const ApiLoaderState.loading();
   ApiLoaderState<T> get state => _state;
 
   int _requestId = 0;
 
   /// Re-runs the fetcher and updates state. Safe to call multiple times;
-  /// only the latest call's result is applied (guards against race
-  /// conditions if refresh() is called again before the previous one
-  /// finishes).
+  /// only the latest call's result is applied.
   Future<void> refresh() async {
     final int currentRequest = ++_requestId;
+
+    onRefresh?.call();
 
     _state = const ApiLoaderState.loading();
     notifyListeners();
 
     try {
       final T result = await _fetcher();
-      if (currentRequest != _requestId) return; // stale response, ignore
+
+      if (currentRequest != _requestId) return;
+
       _state = ApiLoaderState.success(result);
       notifyListeners();
+
+      onLoaded?.call(result);
     } catch (e, st) {
       if (currentRequest != _requestId) return;
+
       _state = ApiLoaderState.error(e, st);
       notifyListeners();
     }

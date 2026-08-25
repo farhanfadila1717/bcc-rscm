@@ -13,4 +13,7 @@ mixin ClientPageActionMapper on GlobalActionMapper {
 
   void goToSurgery({required String id}) =>
       dispatch(NavigateToNextAction('/report/surgery/$id'));
+
+  void goToSelfcheckPatient({required String id}) =>
+      dispatch(NavigateToNextAction('/selfcheck/patient/$id'));
 }

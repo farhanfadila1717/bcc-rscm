@@ -3,7 +3,7 @@ import 'package:bcc_rscm/core/models/doctor/appointment.dart';
 import 'package:bcc_rscm/core/models/doctor/appointment_detail.dart';
 
 final class AppointmentController {
-  const AppointmentController({required this.appointmentClient});
+  const new({required this.appointmentClient});
 
   final AppointmentClient appointmentClient;
 

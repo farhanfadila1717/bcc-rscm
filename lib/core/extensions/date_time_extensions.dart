@@ -6,4 +6,6 @@ extension DateTimeExtensions on DateTime {
   String get convertToStringForApi => DateFormat('yyyy-MM-dd').format(this);
 
   String get mmyyy => DateFormat('MMMM yyyy', 'id').format(this);
+
+  String get ddmmyyy => DateFormat('dd MMMM yyyy', 'id').format(this);
 }

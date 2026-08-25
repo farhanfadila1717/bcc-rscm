@@ -166,7 +166,8 @@ class _ClientPageState extends State<ClientPage> {
               TileMenuItem(
                 title: 'Laporan Progress Pasien',
                 subtitle: 'Patient self-captured progress photos',
-                onPressed: () {},
+                onPressed: () =>
+                    widget.goToSelfcheckPatient(id: widget.clientId),
               ),
             ],
           );

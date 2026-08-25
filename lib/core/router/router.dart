@@ -18,6 +18,8 @@ import 'package:bcc_rscm/ui/pages/report/first_visit_page/first_visit_page.dart'
 import 'package:bcc_rscm/ui/pages/report/routine_visit_page/routine_visit_page.dart';
 import 'package:bcc_rscm/ui/pages/roles_page/roles_page.dart';
 import 'package:bcc_rscm/ui/pages/home_page/home_page.dart';
+import 'package:bcc_rscm/ui/pages/selfcheck/detail_selfcheck_page/detail_selftcheck_page.dart';
+import 'package:bcc_rscm/ui/pages/selfcheck/selfcheck_page/selfcheck_page.dart';
 import 'package:bcc_rscm/ui/pages/visit_routine_detail_page/visit_routine_detail_page.dart';
 import 'package:bcc_rscm/ui/pages/welcome_page/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -103,6 +105,23 @@ final appRouter = GoRouter(
       name: 'Roles',
       path: '/roles',
       builder: (context, state) => const RolesPage(),
+    ),
+    GoRoute(
+      name: 'SelftCheck',
+      path: '/selfcheck',
+      builder: (context, state) => SizedBox.shrink(),
+      routes: [
+        GoRoute(
+          path: 'patient/:id',
+          builder: (context, state) =>
+              SelfcheckPage(id: state.pathParameters['id']!),
+        ),
+        GoRoute(
+          path: 'detail/:id',
+          builder: (context, state) =>
+              DetailSelftcheckPage(id: state.pathParameters['id']!),
+        ),
+      ],
     ),
     GoRoute(
       name: 'SignInPatient',

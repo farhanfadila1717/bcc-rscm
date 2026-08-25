@@ -3,7 +3,7 @@ import 'package:bcc_rscm/core/models/patient/patient.dart';
 import 'package:bcc_rscm/core/models/patient/patient_summary.dart';
 
 final class PatientClient extends ApiClient {
-  PatientClient({required super.interceptors, required super.env});
+  new({required super.interceptors, required super.env});
 
   Future<PatientSummaryList?> patientList() async {
     const endpoint = 'pierre/client/list';
