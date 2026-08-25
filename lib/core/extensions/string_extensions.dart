@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 extension StringExtensions on String {
   String get initials {
     final words = trim()
@@ -15,4 +17,17 @@ extension StringExtensions on String {
   }
 
   String? get preferNullWhenEmpty => isEmpty ? null : this;
+
+  DateTime get convertFromApi => DateFormat('yyyy-MM-dd').parse(this);
+
+  DateTime? get convertFromApiNullable =>
+      preferNullWhenEmpty == null ? null : DateFormat('yyyy-MM-dd').parse(this);
+
+  bool get fromYaOrTidak => this == 'Ya';
+
+  bool get isFromNetwork {
+    final uri = Uri.tryParse(this);
+
+    return uri != null && (uri.scheme == 'http' || uri.scheme == 'https');
+  }
 }

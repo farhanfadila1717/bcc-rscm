@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.bcc_rscm"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

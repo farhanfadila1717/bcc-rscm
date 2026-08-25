@@ -35,6 +35,8 @@ class NavigationMiddleware extends MiddlewareClass<GlobalState> {
       _onShowSnackBarAction(store, action);
     } else if (action is ShowBottomSheetDialogAction) {
       _onShowBottomSheetDialogAction(store, action);
+    } else if (action is ShowDatePickerAction) {
+      _onShowDatePickerAction(store, action);
     }
 
     next(action);
@@ -135,5 +137,21 @@ class NavigationMiddleware extends MiddlewareClass<GlobalState> {
     );
 
     action.onDialogPop?.call(null);
+  }
+
+  void _onShowDatePickerAction(
+    Store<GlobalState> store,
+    ShowDatePickerAction action,
+  ) async {
+    const settings = RouteSettings(name: '/ShowDatePicker');
+    final DateTime? picked = await showDatePicker(
+      routeSettings: settings,
+      context: navigatorKey.currentState!.overlay!.context,
+      initialDate: action.targetDate ?? DateTime.now(),
+      firstDate: action.firstDate ?? DateTime(2020),
+      lastDate: action.lastDate ?? DateTime.now().add(Duration(days: 365)),
+    );
+
+    action.onDateSelected(picked);
   }
 }

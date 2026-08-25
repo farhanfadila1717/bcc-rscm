@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'patient_summary.dart';
@@ -9,6 +9,7 @@ part of 'patient_summary.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$PatientSummaryCopyWithImpl<$Res>
 /// Create a copy of PatientSummary
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? clientDisplayPictureUrl = null,Object? clientName = null,Object? clientId = null,Object? clientAge = null,Object? clientGender = null,Object? clientPhoneNumber = null,Object? clientEmail = null,}) {
-  return _then(_self.copyWith(
+  return _then(PatientSummary(
 clientDisplayPictureUrl: null == clientDisplayPictureUrl ? _self.clientDisplayPictureUrl : clientDisplayPictureUrl // ignore: cast_nullable_to_non_nullable
 as String,clientName: null == clientName ? _self.clientName : clientName // ignore: cast_nullable_to_non_nullable
 as String,clientId: null == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
@@ -347,7 +348,7 @@ class _$PatientSummaryListCopyWithImpl<$Res>
 /// Create a copy of PatientSummaryList
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? clientSummaryList = null,}) {
-  return _then(_self.copyWith(
+  return _then(PatientSummaryList(
 clientSummaryList: null == clientSummaryList ? _self.clientSummaryList : clientSummaryList // ignore: cast_nullable_to_non_nullable
 as List<PatientSummary>,
   ));
@@ -490,7 +491,7 @@ return $default(_that.clientSummaryList);case _:
 
 @JsonSerializable(fieldRename: .pascal)
 class _PatientSummaryList extends PatientSummaryList {
-  const _PatientSummaryList({required final  List<PatientSummary> clientSummaryList}): _clientSummaryList = clientSummaryList,super._();
+  const _PatientSummaryList({required  List<PatientSummary> clientSummaryList}): _clientSummaryList = clientSummaryList,super._();
   factory _PatientSummaryList.fromJson(Map<String, dynamic> json) => _$PatientSummaryListFromJson(json);
 
  final  List<PatientSummary> _clientSummaryList;

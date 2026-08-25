@@ -9,8 +9,11 @@ import 'package:bcc_rscm/ui/pages/camera/camera_page/camera_page.dart';
 import 'package:bcc_rscm/ui/pages/cleft_connect_page/cleft_connect_page.dart';
 import 'package:bcc_rscm/ui/pages/cleft_tracker_page/cleft_tracker_page.dart';
 import 'package:bcc_rscm/ui/pages/doctor/client_page/client_page.dart';
+import 'package:bcc_rscm/ui/pages/doctor/detail_surgery_page/detail_surgery_page.dart';
+import 'package:bcc_rscm/ui/pages/doctor/patient_surgery_page/patient_surgery_page.dart';
 import 'package:bcc_rscm/ui/pages/doctor/doctor_home_page/doctor_home_page.dart';
 import 'package:bcc_rscm/ui/pages/doctor/doctor_profile_page/doctor_profile_page.dart';
+import 'package:bcc_rscm/ui/pages/profile_patient_page/profile_patient_page.dart';
 import 'package:bcc_rscm/ui/pages/report/first_visit_page/first_visit_page.dart';
 import 'package:bcc_rscm/ui/pages/report/routine_visit_page/routine_visit_page.dart';
 import 'package:bcc_rscm/ui/pages/roles_page/roles_page.dart';
@@ -58,6 +61,11 @@ final appRouter = GoRouter(
           builder: (context, state) =>
               ClientPage(clientId: state.pathParameters['id']!),
         ),
+        GoRoute(
+          path: 'profile/:id',
+          builder: (context, state) =>
+              ProfilePatientPage(id: state.pathParameters['id']!),
+        ),
       ],
     ),
     GoRoute(
@@ -78,6 +86,16 @@ final appRouter = GoRouter(
           path: 'routine-visit/:id',
           builder: (context, state) =>
               RoutineVisitPage(id: state.pathParameters['id']!),
+        ),
+        GoRoute(
+          path: 'surgery/:id',
+          builder: (context, state) =>
+              PatientSurgeryPage(id: state.pathParameters['id']!),
+        ),
+        GoRoute(
+          path: 'detail-surgery/:id',
+          builder: (context, state) =>
+              DetailSurgeryPage(id: state.pathParameters['id']!),
         ),
       ],
     ),

@@ -5,7 +5,10 @@ import 'package:bcc_rscm/ui/components/primary_button.dart';
 import 'package:bcc_rscm/ui/themes/colors.dart';
 import 'package:flutter/material.dart';
 
-class CameraGuidePage extends StatefulGlobalActionMapper {
+import 'camera_guide_page_action_mapper.dart';
+
+class CameraGuidePage extends StatefulGlobalActionMapper
+    with CameraGuidePageActionMapper {
   const CameraGuidePage({super.key});
 
   @override
@@ -47,7 +50,7 @@ class _CameraGuidePageState extends State<CameraGuidePage> {
           PrimaryButton(
             text: 'Ya, Saya Siap',
             color: ColorPalette.orange40,
-            onPressed: () {},
+            onPressed: widget.goToCamera,
           ),
         ],
       ),

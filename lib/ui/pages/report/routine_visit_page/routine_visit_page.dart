@@ -4,6 +4,7 @@ import 'package:bcc_rscm/core/models/doctor/appointment.dart';
 import 'package:bcc_rscm/core/redux/action_mapper.dart';
 import 'package:bcc_rscm/ui/components/api_loader.dart';
 import 'package:bcc_rscm/ui/components/default_appbar.dart';
+import 'package:bcc_rscm/ui/components/default_chip.dart';
 import 'package:bcc_rscm/ui/components/default_empty_view.dart';
 import 'package:bcc_rscm/ui/components/gap.dart';
 import 'package:bcc_rscm/ui/themes/colors.dart';
@@ -63,77 +64,47 @@ class _RoutineVisitPageState extends State<RoutineVisitPage> {
             itemBuilder: (_, index) {
               final item = appointmentSummaryList[index];
 
+              final date = item.appointmentDate.convertFromApi;
+
               return GestureDetector(
                 onTap: () =>
                     widget.goToDetailVisitRoutine(id: item.appointmentID),
                 child: Container(
-                  clipBehavior: .hardEdge,
+                  padding: .all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     borderRadius: .circular(16),
-                    border: .all(color: ColorPalette.greyScaleBlack10),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorPalette.greyScaleBlack10,
+                        offset: Offset(0, 1),
+                        blurRadius: 5,
+                      ),
+                    ],
                   ),
                   child: Column(
                     crossAxisAlignment: .start,
                     children: [
-                      Container(
-                        padding: .symmetric(horizontal: 16, vertical: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: .vertical(top: .circular(16)),
+                      Text(
+                        '${date.day}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: .bold,
                           color: ColorPalette.bluePrimary,
                         ),
-                        child: Row(
-                          spacing: 8,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/ic_tracker.svg',
-                              height: 24,
-                              width: 24,
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: .start,
-                                mainAxisAlignment: .center,
-                                spacing: 2,
-                                children: [
-                                  Text(
-                                    item.appointmentDate,
-                                    style: TextStyle(
-                                      fontSize: 10,
-
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    item.serviceProviderDisplayedTag,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: .bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                      ),
+                      Text(date.mmyyy, style: TextStyle(fontSize: 12)),
+                      Gap(size: 10),
+                      DefaultChip(text: item.serviceProviderDisplayedTag),
+                      Gap(size: 10),
+                      Text(
+                        item.appointmentName,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: .w600,
                         ),
                       ),
-                      Padding(
-                        padding: .fromLTRB(16, 10, 16, 4),
-                        child: Text(
-                          item.appointmentName,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: .bold,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: .fromLTRB(16, 0, 16, 10),
-                        child: Text(
-                          item.serviceProviderDisplayedName,
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ),
+                      Text(item.serviceProviderDisplayedName),
                     ],
                   ),
                 ),
@@ -143,6 +114,84 @@ class _RoutineVisitPageState extends State<RoutineVisitPage> {
             itemCount: appointmentSummaryList!.length,
           );
         },
+      ),
+    );
+  }
+}
+
+class RoutineVisitCard extends StatelessWidget {
+  const RoutineVisitCard({super.key, required this.onTap, required this.item});
+
+  final VoidCallback onTap;
+  final AppointmentSummary item;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        clipBehavior: .hardEdge,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: .circular(16),
+          border: .all(color: ColorPalette.greyScaleBlack10),
+        ),
+        child: Column(
+          crossAxisAlignment: .start,
+          children: [
+            Container(
+              padding: .symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                borderRadius: .vertical(top: .circular(16)),
+                color: ColorPalette.bluePrimary,
+              ),
+              child: Row(
+                spacing: 8,
+                children: [
+                  SvgPicture.asset(
+                    'assets/icons/ic_tracker.svg',
+                    height: 24,
+                    width: 24,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: .start,
+                      mainAxisAlignment: .center,
+                      spacing: 2,
+                      children: [
+                        Text(
+                          item.appointmentDate,
+                          style: TextStyle(fontSize: 10, color: Colors.white),
+                        ),
+                        Text(
+                          item.serviceProviderDisplayedTag,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: .bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: .fromLTRB(16, 10, 16, 4),
+              child: Text(
+                item.appointmentName,
+                style: TextStyle(color: Colors.black, fontWeight: .bold),
+              ),
+            ),
+            Padding(
+              padding: .fromLTRB(16, 0, 16, 10),
+              child: Text(
+                item.serviceProviderDisplayedName,
+                style: TextStyle(fontSize: 12),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

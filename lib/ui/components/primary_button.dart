@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     super.key,
-    required this.text,
+    this.text,
+    this.child,
     this.color,
     this.onPressed,
     this.width,
   });
 
-  final String text;
+  final String? text;
+  final Widget? child;
   final VoidCallback? onPressed;
   final Color? color;
   final double? width;
@@ -18,10 +20,11 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
+      height: 55,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(backgroundColor: color),
-        child: Text(text),
+        child: child ?? Text(text ?? ''),
       ),
     );
   }

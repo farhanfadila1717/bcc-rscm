@@ -51,13 +51,12 @@ class _ClientPageState extends State<ClientPage> {
           }
           final clientDetail = data.clientDetail;
           return ListView(
-            padding: .all(20),
+            padding: .fromLTRB(20, 0, 20, 20),
             children: [
+              CircleName(dimension: 55, name: clientDetail.clientFullName),
               Row(
                 crossAxisAlignment: .start,
                 children: [
-                  CircleName(dimension: 55, name: clientDetail.clientFullName),
-                  Gap(size: 16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: .start,
@@ -145,7 +144,7 @@ class _ClientPageState extends State<ClientPage> {
               TileMenuItem(
                 title: 'Profil Pasien',
                 subtitle: 'Patient demographic information',
-                onPressed: () {},
+                onPressed: () => widget.goToProfilePatient(id: widget.clientId),
               ),
               TileMenuItem(
                 title: 'Laporan Visit Awal',
@@ -162,7 +161,7 @@ class _ClientPageState extends State<ClientPage> {
               TileMenuItem(
                 title: 'Laporan Operasi',
                 subtitle: 'Surgery reports and operative notes',
-                onPressed: () {},
+                onPressed: () => widget.goToSurgery(id: widget.clientId),
               ),
               TileMenuItem(
                 title: 'Laporan Progress Pasien',

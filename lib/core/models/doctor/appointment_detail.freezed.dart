@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'appointment_detail.dart';
@@ -9,6 +9,7 @@ part of 'appointment_detail.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -64,7 +65,7 @@ class _$ExaminationDetailCopyWithImpl<$Res>
 /// Create a copy of ExaminationDetail
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? recordDate = null,Object? nextControlDate = null,Object? complaint = null,Object? subjective = null,Object? objective = null,Object? assessment = null,Object? plan = null,}) {
-  return _then(_self.copyWith(
+  return _then(ExaminationDetail(
 recordDate: null == recordDate ? _self.recordDate : recordDate // ignore: cast_nullable_to_non_nullable
 as String,nextControlDate: null == nextControlDate ? _self.nextControlDate : nextControlDate // ignore: cast_nullable_to_non_nullable
 as String,complaint: null == complaint ? _self.complaint : complaint // ignore: cast_nullable_to_non_nullable
@@ -340,7 +341,7 @@ class _$AppointmentDetailResponseCopyWithImpl<$Res>
 /// Create a copy of AppointmentDetailResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? appointmentID = null,Object? clientID = null,Object? clientDisplayedName = null,Object? examinationDetail = null,Object? serviceProviderID = null,Object? serviceProviderDisplayedName = null,Object? attachments = null,}) {
-  return _then(_self.copyWith(
+  return _then(AppointmentDetailResponse(
 appointmentID: null == appointmentID ? _self.appointmentID : appointmentID // ignore: cast_nullable_to_non_nullable
 as String,clientID: null == clientID ? _self.clientID : clientID // ignore: cast_nullable_to_non_nullable
 as String,clientDisplayedName: null == clientDisplayedName ? _self.clientDisplayedName : clientDisplayedName // ignore: cast_nullable_to_non_nullable

@@ -2,6 +2,7 @@ import 'package:bcc_rscm/core/api/api.dart';
 import 'package:bcc_rscm/core/api/controllers/appointment_controller.dart';
 import 'package:bcc_rscm/core/api/controllers/intake_controller.dart';
 import 'package:bcc_rscm/core/api/controllers/patient_controller.dart';
+import 'package:bcc_rscm/core/api/controllers/service_controller.dart';
 import 'package:bcc_rscm/core/api/interceptors/curl_interceptors.dart';
 import 'package:bcc_rscm/core/models/utils/environment_config.dart';
 import 'package:bcc_rscm/core/redux/states/global_state.dart';
@@ -38,6 +39,10 @@ void inject(EnvironmentConfig env) {
 
   getIt.registerSingleton<PatientController>(
     PatientController(patientClient: api.patientClient),
+  );
+
+  getIt.registerSingleton<ServiceController>(
+    ServiceController(serviceClient: api.serviceClient),
   );
 
   getIt.registerSingleton<Store<GlobalState>>(createStore());

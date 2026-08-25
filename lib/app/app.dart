@@ -123,7 +123,6 @@ class _AppWrapperState extends State<_AppWrapper> with AfterLayoutMixin {
           style: OutlinedButton.styleFrom(
             foregroundColor: Color(0xFF1F4391),
             iconColor: Color(0xFF1F4391),
-            minimumSize: Size(0, 55),
             textStyle: TextStyle(
               fontSize: 16,
               fontWeight: .w700,
@@ -135,12 +134,15 @@ class _AppWrapperState extends State<_AppWrapper> with AfterLayoutMixin {
             ),
           ),
         ),
+        datePickerTheme: DatePickerThemeData(backgroundColor: Colors.white),
         fontFamily: 'Poppins',
       ),
       locale: Locale('id', 'ID'),
+      supportedLocales: [Locale('id', 'ID')],
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       routerConfig: getIt.get<GoRouter>(),
     );

@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 const kDiagnosis = [
   ' Cleft Soft Palate',
   'Cleft Hard Palate with Cleft Soft Palate',
@@ -11,3 +13,13 @@ const kDiagnosis = [
   'Congenital Malformation of the Palate',
   'Other',
 ];
+
+const kGender = ['Laki-laki', 'Perempuan'];
+
+const kSwitchYesNo = ['Ya', 'Tidak'];
+
+const kFirstClassification = ['CLP Bilateral', 'CL Unilateral', 'CP', 'Lainya'];
+
+final doubleInputFormat = FilteringTextInputFormatter.allow(
+  RegExp(r'^\d+\.?\d*'),
+);

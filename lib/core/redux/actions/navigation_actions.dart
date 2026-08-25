@@ -129,3 +129,17 @@ final class ShowBottomSheetDialogAction extends NavigationActions {
   final bool isScrollControlled;
   final OnNavigateBack? onDialogPop;
 }
+
+final class ShowDatePickerAction extends NavigationActions {
+  final Function(DateTime?) onDateSelected;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
+  final DateTime? targetDate;
+
+  const ShowDatePickerAction({
+    required this.onDateSelected,
+    this.firstDate,
+    this.lastDate,
+    this.targetDate,
+  });
+}

@@ -8,6 +8,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   const DefaultAppBar({
     super.key,
     this.title,
+    this.titleWidget,
     this.textStyle,
     this.actions,
     this.elevation = 0,
@@ -23,6 +24,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   final String? title;
+  final Widget? titleWidget;
   final TextStyle? textStyle;
   final List<Widget>? actions;
   final double elevation;
@@ -54,7 +56,9 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? Brightness.light
             : Brightness.dark,
       ),
-      title: title != null
+      title: titleWidget != null
+          ? titleWidget!
+          : title != null
           ? Text(
               title!,
               style:
@@ -70,7 +74,10 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? (leading ??
                 (canPop
                     ? IconButton(
-                        icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                        icon: Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          color: iconColor,
+                        ),
                         tooltip: 'Kembali',
                         onPressed: onTap ?? () => context.pop(),
                       )

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'diagnosis.dart';
@@ -9,6 +9,7 @@ part of 'diagnosis.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -64,7 +65,7 @@ class _$DiagnosisDetailCopyWithImpl<$Res>
 /// Create a copy of DiagnosisDetail
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? diagnosisName = null,Object? diagnosisDescription = null,Object? diagnosisDate = null,}) {
-  return _then(_self.copyWith(
+  return _then(DiagnosisDetail(
 diagnosisName: null == diagnosisName ? _self.diagnosisName : diagnosisName // ignore: cast_nullable_to_non_nullable
 as String,diagnosisDescription: null == diagnosisDescription ? _self.diagnosisDescription : diagnosisDescription // ignore: cast_nullable_to_non_nullable
 as String,diagnosisDate: null == diagnosisDate ? _self.diagnosisDate : diagnosisDate // ignore: cast_nullable_to_non_nullable
@@ -328,7 +329,7 @@ class _$IntakeDetailResponseCopyWithImpl<$Res>
 /// Create a copy of IntakeDetailResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? preOperativeTreatment = null,Object? primaryDiagnosis = null,Object? secondaryDiagnosis = null,Object? clientHasPierreRobinSequence = null,Object? clientHasSyndrome = null,Object? clientHasOtherCongenitalDeformity = null,Object? pierreRobinSequenceDetail = null,Object? clientSyndromeDetail = null,Object? clientSyndromeDetailList = null,}) {
-  return _then(_self.copyWith(
+  return _then(IntakeDetailResponse(
 preOperativeTreatment: null == preOperativeTreatment ? _self.preOperativeTreatment : preOperativeTreatment // ignore: cast_nullable_to_non_nullable
 as String,primaryDiagnosis: null == primaryDiagnosis ? _self.primaryDiagnosis : primaryDiagnosis // ignore: cast_nullable_to_non_nullable
 as String,secondaryDiagnosis: null == secondaryDiagnosis ? _self.secondaryDiagnosis : secondaryDiagnosis // ignore: cast_nullable_to_non_nullable
@@ -497,7 +498,7 @@ return $default(_that.preOperativeTreatment,_that.primaryDiagnosis,_that.seconda
 
 @JsonSerializable(fieldRename: .pascal, createToJson: false)
 class _IntakeDetailResponse extends IntakeDetailResponse {
-  const _IntakeDetailResponse({required this.preOperativeTreatment, required this.primaryDiagnosis, required this.secondaryDiagnosis, required this.clientHasPierreRobinSequence, required this.clientHasSyndrome, required this.clientHasOtherCongenitalDeformity, required this.pierreRobinSequenceDetail, required this.clientSyndromeDetail, required final  List<DiagnosisDetail> clientSyndromeDetailList}): _clientSyndromeDetailList = clientSyndromeDetailList,super._();
+  const _IntakeDetailResponse({required this.preOperativeTreatment, required this.primaryDiagnosis, required this.secondaryDiagnosis, required this.clientHasPierreRobinSequence, required this.clientHasSyndrome, required this.clientHasOtherCongenitalDeformity, required this.pierreRobinSequenceDetail, required this.clientSyndromeDetail, required  List<DiagnosisDetail> clientSyndromeDetailList}): _clientSyndromeDetailList = clientSyndromeDetailList,super._();
   factory _IntakeDetailResponse.fromJson(Map<String, dynamic> json) => _$IntakeDetailResponseFromJson(json);
 
 @override final  String preOperativeTreatment;

@@ -105,6 +105,7 @@ class ApiLoader<T> extends StatelessWidget {
     required this.builder,
     this.loadingBuilder,
     this.errorBuilder,
+    this.sliver = false,
   });
 
   final ApiLoaderController<T> controller;
@@ -120,6 +121,9 @@ class ApiLoader<T> extends StatelessWidget {
   final Widget Function(BuildContext context, Object error, VoidCallback retry)?
   errorBuilder;
 
+  /// Flag for sliver
+  final bool sliver;
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -129,7 +133,8 @@ class ApiLoader<T> extends StatelessWidget {
 
         switch (state.status) {
           case ApiLoaderStatus.loading:
-            return loadingBuilder?.call(context) ?? const _DefaultLoading();
+            return loadingBuilder?.call(context) ??
+                _DefaultLoading(sliver: sliver);
 
           case ApiLoaderStatus.error:
             return errorBuilder?.call(
@@ -137,7 +142,11 @@ class ApiLoader<T> extends StatelessWidget {
                   state.error!,
                   controller.refresh,
                 ) ??
-                _DefaultError(error: state.error!, onRetry: controller.refresh);
+                _DefaultError(
+                  error: state.error!,
+                  onRetry: controller.refresh,
+                  sliver: sliver,
+                );
 
           case ApiLoaderStatus.success:
             return builder(context, state.data as T);
@@ -148,28 +157,41 @@ class ApiLoader<T> extends StatelessWidget {
 }
 
 class _DefaultLoading extends StatelessWidget {
-  const _DefaultLoading();
+  const _DefaultLoading({required this.sliver});
+
+  final bool sliver;
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    final child = Center(
       child: Padding(
         padding: EdgeInsets.all(24),
         child: CircularProgressIndicator(),
       ),
     );
+
+    if (sliver) {
+      return SliverToBoxAdapter(child: child);
+    }
+
+    return child;
   }
 }
 
 class _DefaultError extends StatelessWidget {
-  const _DefaultError({required this.error, required this.onRetry});
+  const _DefaultError({
+    required this.error,
+    required this.onRetry,
+    required this.sliver,
+  });
 
   final Object error;
   final VoidCallback onRetry;
+  final bool sliver;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    final child = Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -188,5 +210,10 @@ class _DefaultError extends StatelessWidget {
         ),
       ),
     );
+
+    if (sliver) {
+      return SliverToBoxAdapter(child: child);
+    }
+    return child;
   }
 }

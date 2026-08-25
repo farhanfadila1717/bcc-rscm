@@ -2,6 +2,7 @@ import 'package:bcc_rscm/core/api/controllers/patient_controller.dart';
 import 'package:bcc_rscm/core/models/patient/patient_summary.dart';
 import 'package:bcc_rscm/core/redux/action_mapper.dart';
 import 'package:bcc_rscm/ui/components/api_loader.dart';
+import 'package:bcc_rscm/ui/components/circle_avatar_image.dart';
 import 'package:bcc_rscm/ui/components/circle_name.dart';
 import 'package:bcc_rscm/ui/components/default_appbar.dart';
 import 'package:bcc_rscm/ui/components/gap.dart';
@@ -32,7 +33,16 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(title: 'Daftar Pasien'),
+      appBar: DefaultAppBar(
+        titleWidget: Row(
+          spacing: 8,
+          children: [
+            Icon(Icons.group),
+            Text('Patients', style: TextStyle(fontSize: 16, fontWeight: .bold)),
+          ],
+        ),
+        centerTitle: false,
+      ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Tambah Pasien',
         onPressed: () {},
@@ -48,7 +58,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
 
           return ListView.separated(
             itemCount: clientSummaryList.length,
-            padding: .symmetric(horizontal: 20),
+            padding: .fromLTRB(20, 4, 20, 20),
             itemBuilder: (_, index) {
               final item = clientSummaryList[index];
 
@@ -57,15 +67,30 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                 child: Container(
                   padding: .all(10),
                   decoration: BoxDecoration(
-                    border: Border.all(color: ColorPalette.greyScaleBlack10),
+                    color: Colors.white,
                     borderRadius: .circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorPalette.greyScaleBlack10,
+                        offset: Offset(0, 1),
+                        blurRadius: 5,
+                      ),
+                    ],
                   ),
                   child: Column(
                     children: [
                       Row(
                         spacing: 10,
                         children: [
-                          CircleName(dimension: 40, name: item.clientName),
+                          item.clientDisplayPictureUrl.isNotEmpty
+                              ? CircleAvatarImage(
+                                  imageUrl: item.clientDisplayPictureUrl,
+                                  dimension: 40,
+                                )
+                              : CircleName(
+                                  dimension: 40,
+                                  name: item.clientName,
+                                ),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: .start,

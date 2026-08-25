@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:bcc_rscm/ui/components/default_appbar.dart';
@@ -14,75 +15,124 @@ class CameraPage extends StatefulWidget {
   State<CameraPage> createState() => _CameraPageState();
 }
 
-class _CameraPageState extends State<CameraPage> {
+class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
   CameraController? _cameraController;
   List<CameraDescription> _cameras = [];
-  CameraLensDirection _currentDirection = CameraLensDirection.front;
+  int _selectedCameraIndex = 0;
+  XFile? _file;
 
   @override
   void initState() {
     super.initState();
-    _initializeCamera();
+    WidgetsBinding.instance.addObserver(this);
+    _getCamera();
   }
 
-  Future<void> _initializeCamera() async {
+  Future<void> _getCamera() async {
     try {
       _cameras = await availableCameras();
 
-      if (_cameras.isEmpty) return;
+      if (_cameras.isEmpty) throw 'there is no available camera';
 
-      final camera = _cameras.firstWhere(
-        (camera) => camera.lensDirection == _currentDirection,
-        orElse: () => _cameras.first,
-      );
+      // Prefer front camera if any
+      for (int i = 0; i < _cameras.length; i++) {
+        if (_cameras[i].lensDirection == .front) {
+          _selectedCameraIndex = i;
+          break;
+        }
+      }
 
-      await _setCamera(camera);
-    } catch (e) {
-      debugPrint('Failed to initialize camera: $e');
+      _initializeCameraController(_cameras[_selectedCameraIndex]);
+    } catch (ex) {
+      debugPrint(ex.toString());
     }
-  }
-
-  Future<void> _setCamera(CameraDescription camera) async {
-    final oldController = _cameraController;
-
-    final controller = CameraController(
-      camera,
-      ResolutionPreset.high,
-      enableAudio: false,
-    );
-
-    await controller.initialize();
-
-    await oldController?.dispose();
-
-    if (!mounted) {
-      await controller.dispose();
-      return;
-    }
-
-    setState(() {
-      _cameraController = controller;
-      _currentDirection = camera.lensDirection;
-    });
   }
 
   Future<void> _switchCamera() async {
-    if (_cameras.length < 2) return;
+    final currentCameraDescription = _cameras[_selectedCameraIndex];
 
-    final newDirection = _currentDirection == CameraLensDirection.front
-        ? CameraLensDirection.back
-        : CameraLensDirection.front;
+    for (int i = 0; i < _cameras.length; i++) {
+      if (_selectedCameraIndex == i) continue;
+      final camera = _cameras[i];
 
-    final camera = _cameras.firstWhere(
-      (camera) => camera.lensDirection == newDirection,
-      orElse: () => _cameras.first,
+      if (camera.lensDirection != currentCameraDescription.lensDirection) {
+        onNewCameraSelected(camera);
+        _selectedCameraIndex = i;
+        setState(() {});
+        break;
+      }
+    }
+  }
+
+  Future<void> onNewCameraSelected(CameraDescription cameraDescription) async {
+    if (_cameraController != null) {
+      return _cameraController!.setDescription(cameraDescription);
+    } else {
+      return _initializeCameraController(cameraDescription);
+    }
+  }
+
+  Future<void> _initializeCameraController(
+    CameraDescription cameraDescription,
+  ) async {
+    final cameraController = CameraController(
+      cameraDescription,
+      ResolutionPreset.medium,
+      enableAudio: false,
+      imageFormatGroup: ImageFormatGroup.jpeg,
     );
 
-    await _setCamera(camera);
+    _cameraController = cameraController;
+
+    // If the controller is updated then update the UI.
+    cameraController.addListener(() {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+
+    try {
+      await cameraController.initialize();
+    } on CameraException catch (e) {
+      switch (e.code) {
+        case 'CameraAccessDenied':
+        case 'CameraAccessDeniedWithoutPrompt':
+        // iOS only
+        case 'CameraAccessRestricted':
+        // iOS only
+        case 'AudioAccessDenied':
+        case 'AudioAccessDeniedWithoutPrompt':
+        // iOS only
+        case 'AudioAccessRestricted':
+        // iOS only
+        default:
+      }
+    }
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final CameraController? cameraController = _cameraController;
+
+    // App state changed before we got the chance to initialize.
+    if (cameraController == null || !cameraController.value.isInitialized) {
+      return;
+    }
+
+    if (state == AppLifecycleState.inactive) {
+      cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      _initializeCameraController(cameraController.description);
+    }
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _cameraController?.dispose();
     super.dispose();
   }
@@ -93,17 +143,93 @@ class _CameraPageState extends State<CameraPage> {
       appBar: DefaultAppBar(
         title: 'Pengambilan Foto',
         actions: [
-          IconButton(
-            onPressed: _switchCamera,
-            icon: Icon(Icons.flip_camera_ios),
-          ),
+          if (_file == null)
+            IconButton(
+              onPressed: _switchCamera,
+              icon: Icon(Icons.flip_camera_ios),
+            ),
         ],
       ),
       body: _cameraController == null || !_cameraController!.value.isInitialized
           ? const Center(child: CircularProgressIndicator())
+          : _file != null
+          ? Stack(
+              children: [
+                Positioned.fill(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: SizedBox(
+                              width:
+                                  _cameraController!.value.previewSize!.height,
+                              height:
+                                  _cameraController!.value.previewSize!.width,
+                              child: Image.file(File(_file!.path)),
+                            ),
+                          ),
+                        ),
+                        Gap(size: 20),
+                        Text(
+                          'Apakah foto sudah terlihat jelas?',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: .bold,
+                          ),
+                          textAlign: .center,
+                        ),
+                        Gap(size: 24),
+                        SafeArea(
+                          top: false,
+                          child: Row(
+                            spacing: 16,
+                            children: [
+                              Expanded(
+                                child: OutlinedButton(
+                                  child: Text('Ulangi'),
+                                  onPressed: () async {
+                                    setState(() {
+                                      _file = null;
+                                      _cameraController!.resumePreview();
+                                    });
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: PrimaryButton(
+                                  width: .infinity,
+                                  text: 'Jelas',
+                                  color: ColorPalette.bluePrimary,
+                                  onPressed: () =>
+                                      Navigator.pop(context, _file),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            )
           : Stack(
               children: [
-                Positioned.fill(child: CameraPreview(_cameraController!)),
+                Positioned.fill(
+                  child: ClipRect(
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: SizedBox(
+                        width: _cameraController!.value.previewSize!.height,
+                        height: _cameraController!.value.previewSize!.width,
+                        child: CameraPreview(_cameraController!),
+                      ),
+                    ),
+                  ),
+                ),
                 Positioned.fill(
                   child: Padding(
                     padding: const EdgeInsets.all(20),
@@ -131,11 +257,23 @@ class _CameraPageState extends State<CameraPage> {
                           textAlign: .center,
                         ),
                         Spacer(),
-                        PrimaryButton(
-                          width: .infinity,
-                          text: 'Ambil Foto',
-                          color: ColorPalette.orange40,
-                          onPressed: () {},
+                        SafeArea(
+                          top: false,
+                          child: PrimaryButton(
+                            width: .infinity,
+                            text: 'Ambil Foto',
+                            color: ColorPalette.orange40,
+                            onPressed: () async {
+                              final file = await _cameraController!
+                                  .takePicture();
+
+                              _cameraController?.pausePreview();
+
+                              setState(() {
+                                _file = file;
+                              });
+                            },
+                          ),
                         ),
                       ],
                     ),

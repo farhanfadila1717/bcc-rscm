@@ -1,5 +1,6 @@
 import 'package:bcc_rscm/core/api/controllers/intake_controller.dart';
 import 'package:bcc_rscm/core/constanst.dart';
+import 'package:bcc_rscm/core/extensions/extensions.dart';
 import 'package:bcc_rscm/core/models/doctor/diagnosis.dart';
 import 'package:bcc_rscm/core/redux/action_mapper.dart';
 import 'package:bcc_rscm/ui/components/api_loader.dart';
@@ -14,6 +15,7 @@ import 'package:bcc_rscm/ui/components/primary_button.dart';
 import 'package:bcc_rscm/ui/components/report_group.dart';
 import 'package:bcc_rscm/ui/components/title_form.dart';
 import 'package:bcc_rscm/ui/themes/colors.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 
 class FirstVisitPage extends StatefulGlobalActionMapper {
@@ -27,6 +29,7 @@ class FirstVisitPage extends StatefulGlobalActionMapper {
 
 class _FirstVisitPageState extends State<FirstVisitPage> {
   late final ApiLoaderController<IntakeDetailResponse?> _apiLoaderController;
+  IntakeDetailResponse? _intakeDetailResponse;
 
   @override
   void initState() {
@@ -36,6 +39,17 @@ class _FirstVisitPageState extends State<FirstVisitPage> {
           widget.injector.get<IntakeController>().intakeDetail(id: widget.id),
     );
   }
+
+  void _onUpdate(IntakeDetailResponse newValue) {
+    EasyDebounce.debounce('first-visit', Duration(milliseconds: 100), () {
+      setState(() {
+        _intakeDetailResponse = newValue;
+      });
+    });
+  }
+
+  IntakeDetailResponse get formData =>
+      _intakeDetailResponse ?? _apiLoaderController.state.data!;
 
   @override
   void dispose() {
@@ -57,6 +71,7 @@ class _FirstVisitPageState extends State<FirstVisitPage> {
         ),
         child: ApiLoader(
           controller: _apiLoaderController,
+
           builder: (_, data) {
             return Scrollbar(
               child: ListView(
@@ -70,8 +85,12 @@ class _FirstVisitPageState extends State<FirstVisitPage> {
                       Gap(size: 4),
                       DefaultTextfield(
                         maxLines: 5,
+                        initial: data?.preOperativeTreatment,
                         hint:
                             'Enter pre-operative treatment (e.g. NAM Therapy, lip taping, feeding iteration, speech therapy, orthodontic treatment, etc.)',
+                        onChanged: (value) => _onUpdate(
+                          formData.copyWith(preOperativeTreatment: value),
+                        ),
                       ),
                     ],
                   ),
@@ -86,7 +105,13 @@ class _FirstVisitPageState extends State<FirstVisitPage> {
                       Gap(size: 4),
                       Text('Diagnosis', style: TextStyle(color: Colors.black)),
                       Gap(size: 4),
-                      DefaultDropdown(items: kDiagnosis, onChanged: (value) {}),
+                      DefaultDropdown(
+                        initialValue: data?.primaryDiagnosis,
+                        items: kDiagnosis,
+                        onChanged: (value) => _onUpdate(
+                          formData.copyWith(primaryDiagnosis: value),
+                        ),
+                      ),
                       Gap(size: 8),
                       Text(
                         'Secondary Diagnosis',
@@ -95,6 +120,10 @@ class _FirstVisitPageState extends State<FirstVisitPage> {
                       Gap(size: 4),
                       DefaultTextfield(
                         hint: 'Enter secondary diagnosis (optional)',
+                        initial: data?.secondaryDiagnosis.preferNullWhenEmpty,
+                        onChanged: (value) => _onUpdate(
+                          formData.copyWith(secondaryDiagnosis: value),
+                        ),
                       ),
                     ],
                   ),
@@ -105,12 +134,33 @@ class _FirstVisitPageState extends State<FirstVisitPage> {
                   ),
                   ReportGroup(
                     title: 'Pierre Robin Sequence',
-                    trailing: DefaultSwitch(value: true, onChanged: (value) {}),
+                    trailing: DefaultSwitch(
+                      value: formData.clientHasPierreRobinSequence,
+                      onChanged: (value) => _onUpdate(
+                        formData.copyWith(clientHasPierreRobinSequence: value),
+                      ),
+                    ),
                     children: [
                       Gap(size: 4),
-                      TitleForm(title: 'Date Diagnosed'),
-                      Gap(size: 4),
-                      DefaultDatePicker(onChanged: (value) {}),
+                      if (formData.clientHasPierreRobinSequence) ...[
+                        TitleForm(title: 'Date Diagnosed'),
+                        Gap(size: 4),
+                        DefaultDatePicker(
+                          selected: formData
+                              .pierreRobinSequenceDetail
+                              .diagnosisDate
+                              .convertFromApiNullable,
+                          onChanged: (value) => _onUpdate(
+                            formData.copyWith(
+                              pierreRobinSequenceDetail: formData
+                                  .pierreRobinSequenceDetail
+                                  .copyWith(
+                                    diagnosisDate: value.convertToStringForApi,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                   Divider(
@@ -121,18 +171,49 @@ class _FirstVisitPageState extends State<FirstVisitPage> {
                   ReportGroup(
                     title: 'Syndrome',
                     trailing: DefaultSwitch(
-                      value: false,
-                      onChanged: (value) {},
+                      value: formData.clientHasSyndrome,
+                      onChanged: (value) => _onUpdate(
+                        formData.copyWith(clientHasSyndrome: value),
+                      ),
                     ),
                     children: [
                       Gap(size: 4),
-                      TitleForm(title: 'Specify Syndrome'),
-                      Gap(size: 4),
-                      DefaultTextfield(hint: 'Enter specify syndrome'),
-                      Gap(size: 8),
-                      TitleForm(title: 'Date Diagnosed'),
-                      Gap(size: 4),
-                      DefaultDatePicker(onChanged: (value) {}),
+                      if (formData.clientHasSyndrome) ...[
+                        TitleForm(title: 'Specify Syndrome'),
+                        Gap(size: 4),
+                        DefaultTextfield(
+                          hint: 'Enter specify syndrome',
+                          initial: formData
+                              .clientSyndromeDetail
+                              .diagnosisName
+                              .preferNullWhenEmpty,
+                          onChanged: (value) => _onUpdate(
+                            formData.copyWith(
+                              clientSyndromeDetail: formData
+                                  .clientSyndromeDetail
+                                  .copyWith(diagnosisName: value),
+                            ),
+                          ),
+                        ),
+                        Gap(size: 8),
+                        TitleForm(title: 'Date Diagnosed'),
+                        Gap(size: 4),
+                        DefaultDatePicker(
+                          selected: formData
+                              .clientSyndromeDetail
+                              .diagnosisDate
+                              .convertFromApiNullable,
+                          onChanged: (value) => _onUpdate(
+                            formData.copyWith(
+                              clientSyndromeDetail: formData
+                                  .clientSyndromeDetail
+                                  .copyWith(
+                                    diagnosisDate: value.convertToStringForApi,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                   Divider(
@@ -142,16 +223,26 @@ class _FirstVisitPageState extends State<FirstVisitPage> {
                   ),
                   ReportGroup(
                     title: 'Other Congental Deformity',
-                    trailing: DefaultSwitch(value: true, onChanged: (value) {}),
+                    trailing: DefaultSwitch(
+                      value: formData.clientHasOtherCongenitalDeformity,
+                      onChanged: (value) => _onUpdate(
+                        formData.copyWith(
+                          clientHasOtherCongenitalDeformity: value,
+                        ),
+                      ),
+                    ),
                     children: [
                       Gap(size: 4),
-                      TitleForm(title: 'Specify'),
-                      Gap(size: 4),
-                      DefaultTextfield(hint: 'Enter specify'),
-                      Gap(size: 8),
-                      TitleForm(title: 'Date Diagnosed'),
-                      Gap(size: 4),
-                      DefaultDatePicker(onChanged: (value) {}),
+                      // TODO: Here not implemnt because api data
+                      if (formData.clientHasOtherCongenitalDeformity) ...[
+                        TitleForm(title: 'Specify'),
+                        Gap(size: 4),
+                        DefaultTextfield(hint: 'Enter specify'),
+                        Gap(size: 8),
+                        TitleForm(title: 'Date Diagnosed'),
+                        Gap(size: 4),
+                        DefaultDatePicker(onChanged: (value) {}),
+                      ],
                     ],
                   ),
                 ],
@@ -160,10 +251,17 @@ class _FirstVisitPageState extends State<FirstVisitPage> {
           },
         ),
       ),
-      bottomNavigationBar: BottomAreaBar(
-        children: [
-          PrimaryButton(text: 'Simpan', width: .infinity, onPressed: () {}),
-        ],
+      bottomNavigationBar: ListenableBuilder(
+        listenable: _apiLoaderController,
+        builder: (_, child) {
+          final value = _apiLoaderController.state.data;
+          if (value == null) return SizedBox.shrink();
+          return BottomAreaBar(
+            children: [
+              PrimaryButton(text: 'Simpan', width: .infinity, onPressed: () {}),
+            ],
+          );
+        },
       ),
     );
   }

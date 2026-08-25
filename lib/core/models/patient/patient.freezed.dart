@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'patient.dart';
@@ -9,6 +9,7 @@ part of 'patient.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -64,7 +65,7 @@ class _$PatientDetailCopyWithImpl<$Res>
 /// Create a copy of PatientDetail
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? clientID = null,Object? clientFullName = null,Object? clientIdentityNumber = null,Object? clientGender = null,Object? clientIsAdopted = null,Object? clientRegistrationDate = null,Object? clientBirthPlace = null,Object? clientBirthDate = null,Object? clientBirthPlaceAndDate = null,Object? clientBirthWeightKg = null,Object? clientAddress = null,}) {
-  return _then(_self.copyWith(
+  return _then(PatientDetail(
 clientID: null == clientID ? _self.clientID : clientID // ignore: cast_nullable_to_non_nullable
 as String,clientFullName: null == clientFullName ? _self.clientFullName : clientFullName // ignore: cast_nullable_to_non_nullable
 as String,clientIdentityNumber: null == clientIdentityNumber ? _self.clientIdentityNumber : clientIdentityNumber // ignore: cast_nullable_to_non_nullable
@@ -352,7 +353,7 @@ class _$PatientDetailResponseCopyWithImpl<$Res>
 /// Create a copy of PatientDetailResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? clientDetail = null,Object? guardianDetail = null,Object? medicalHistoryDetail = null,}) {
-  return _then(_self.copyWith(
+  return _then(PatientDetailResponse(
 clientDetail: null == clientDetail ? _self.clientDetail : clientDetail // ignore: cast_nullable_to_non_nullable
 as PatientDetail,guardianDetail: null == guardianDetail ? _self.guardianDetail : guardianDetail // ignore: cast_nullable_to_non_nullable
 as GuardianDetail,medicalHistoryDetail: null == medicalHistoryDetail ? _self.medicalHistoryDetail : medicalHistoryDetail // ignore: cast_nullable_to_non_nullable

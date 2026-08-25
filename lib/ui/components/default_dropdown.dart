@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class DefaultDropdown extends StatelessWidget {
   const DefaultDropdown({
     super.key,
-    this.selectedItem,
+    this.initialValue,
     this.hint,
     required this.items,
     required this.onChanged,
   });
 
-  final String? selectedItem;
+  final String? initialValue;
   final String? hint;
   final List<String> items;
   final ValueChanged<String> onChanged;
@@ -29,6 +29,7 @@ class DefaultDropdown extends StatelessWidget {
         ),
       ),
       isExpanded: true,
+      initialValue: initialValue,
       hint: Text(hint ?? 'Select options', style: TextStyle(fontSize: 12)),
       menuMaxHeight: size.height * .5,
       borderRadius: .circular(8),

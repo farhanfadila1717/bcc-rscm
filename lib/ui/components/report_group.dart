@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 class ReportGroup extends StatelessWidget {
   const ReportGroup({
     super.key,
-    required this.title,
+    this.title,
     required this.children,
     this.trailing,
   });
 
-  final String title;
+  final String? title;
   final Widget? trailing;
   final List<Widget> children;
 
@@ -20,21 +20,22 @@ class ReportGroup extends StatelessWidget {
       child: Column(
         crossAxisAlignment: .start,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: .bold,
+          if (title != null)
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    title!,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      fontWeight: .bold,
+                    ),
                   ),
                 ),
-              ),
-              ?trailing,
-            ],
-          ),
+                ?trailing,
+              ],
+            ),
           Gap(size: 4),
           ...children,
         ],
