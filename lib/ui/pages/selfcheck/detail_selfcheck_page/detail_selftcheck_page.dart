@@ -142,8 +142,7 @@ class _DetailSelftcheckPageState extends State<DetailSelftcheckPage> {
                           ),
                           Gap(size: 16),
                           PrimaryButton(
-                            onPressed: () {},
-
+                            onPressed: () => widget.goToCamera(),
                             child: Text('Ambil Foto'),
                           ),
                         ],
